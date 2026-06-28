@@ -191,6 +191,17 @@
             background: var(--gradient-accent);
         }
 
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-light);
+        }
+        [data-theme="dark"] .glass {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
         /* ================================================================
            SKELETON LOADING
            ================================================================ */
@@ -1029,6 +1040,101 @@
         }
 
         /* ================================================================
+           REVIEW SYSTEM
+           ================================================================ */
+        .reviews-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+        }
+        .reviews-section h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+        .review-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        .review-item .review-user {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+        .review-item .review-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .review-item .review-date {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+        }
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 0.75rem;
+        }
+        .review-form textarea {
+            padding: 10px 14px;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            outline: none;
+            resize: vertical;
+            min-height: 60px;
+            max-height: 120px;
+            transition: var(--transition-fast);
+            width: 100%;
+        }
+        .review-form textarea:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(108, 59, 255, 0.12);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .review-form .char-count {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-align: right;
+        }
+        .review-form .char-count.warning {
+            color: #f59e0b;
+        }
+        .review-form .char-count.danger {
+            color: #ef4444;
+        }
+        .review-form .review-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .review-rating {
+            display: flex;
+            gap: 4px;
+            margin: 4px 0 8px;
+        }
+        .review-rating .star {
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+        }
+        .review-rating .star.active {
+            color: var(--gold);
+        }
+        .review-rating .star:hover {
+            transform: scale(1.15);
+        }
+
+        /* ================================================================
            TESTIMONIALS & BLOG
            ================================================================ */
         .testimonials-grid,
@@ -1170,6 +1276,7 @@
             display: flex;
             gap: 12px;
             margin-top: 1rem;
+            flex-wrap: wrap;
         }
         .contact-info .social-links a {
             width: 44px;
@@ -1531,6 +1638,7 @@
             justify-content: center;
             gap: 16px;
             margin-bottom: 12px;
+            flex-wrap: wrap;
         }
         .social-links-footer a {
             color: var(--text-secondary);
@@ -1719,7 +1827,7 @@
 
     <!-- ===== NAV ===== -->
     <nav class="nav" id="navbar">
-        <a class="nav-logo" href="#"><span class="nav-logo-mark">📚</span>Bibek Books</a>
+        <a class="nav-logo" href="/"><span class="nav-logo-mark">📚</span>Bibek Books</a>
         <div class="nav-spacer"></div>
         <div class="nav-btns">
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
@@ -1752,7 +1860,7 @@
             <div class="hero-content">
                 <div class="hero-badge">✨ Discover · Read · Collect</div>
                 <h1>Your Personal<br><span class="gold">Digital Library</span></h1>
-                <p>Curated books by Bibek — buy, read free titles, and save your favourites.</p>
+                <p>Curated books by Bibek — buy, read free titles, save your favourites, and share your reviews.</p>
                 <div class="hero-stats" id="heroStats">
                     <div class="hero-stat"><strong id="statBooks">0</strong><span>Books</span></div>
                     <div class="hero-stat"><strong id="statCats">0</strong><span>Categories</span></div>
@@ -1852,18 +1960,26 @@
             </div>
             <div class="contact-layout">
                 <div>
-                    <form id="contactForm">
+                    <form id="contactForm" action="https://formspree.io/f/mzdqlpjl" method="POST">
                         <div class="form-group">
                             <label for="contactName">Name</label>
-                            <input type="text" id="contactName" required placeholder="Your full name">
+                            <input type="text" id="contactName" name="name" required placeholder="Your full name">
                         </div>
                         <div class="form-group">
                             <label for="contactEmail">Email</label>
-                            <input type="email" id="contactEmail" required placeholder="your@email.com">
+                            <input type="email" id="contactEmail" name="_replyto" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Phone (optional)</label>
+                            <input type="text" id="contactPhone" name="phone" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" name="subject" placeholder="How can we help?">
                         </div>
                         <div class="form-group">
                             <label for="contactMessage">Message</label>
-                            <textarea id="contactMessage" required placeholder="How can we help you?"></textarea>
+                            <textarea id="contactMessage" name="message" required placeholder="Your message…"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">
                             <i class="fas fa-paper-plane"></i> Send Message
@@ -1876,10 +1992,16 @@
                         We'd love to hear from you. Whether you have a question about our books,
                         authors, or just want to say hello — reach out!
                     </p>
-                    <p><i class="fas fa-envelope" style="color:var(--gold);margin-right:0.5rem;"></i> hello@bibekbooks.in</p>
-                    <p><i class="fas fa-phone" style="color:var(--gold);margin-right:0.5rem;"></i> +91 98765 43210</p>
-                    <p style="margin-bottom:1.5rem;"><i class="fas fa-map-marker-alt" style="color:var(--gold);margin-right:0.5rem;"></i> New Delhi, India</p>
-                    <div class="social-links" id="contactSocial"></div>
+                    <p><i class="fas fa-envelope" style="color:var(--gold);margin-right:0.5rem;"></i> inboxtobibek@gmail.com</p>
+                    <p><i class="fas fa-phone" style="color:var(--gold);margin-right:0.5rem;"></i> +91 8280482686</p>
+                    <p><i class="fas fa-map-marker-alt" style="color:var(--gold);margin-right:0.5rem;"></i> Mayurbhanj, Odisha, India</p>
+                    <div class="social-links" id="contactSocial">
+                        <a href="https://www.instagram.com/itsbibekpatra" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://youtube.com/@gtbcreates" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/in/bibek-patra-932213293" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.facebook.com/thesideincomeguru" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/918280482686" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1888,12 +2010,18 @@
 
     <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
-        <div class="social-links-footer" id="footerSocial"></div>
+        <div class="social-links-footer" id="footerSocial">
+            <a href="https://www.instagram.com/itsbibekpatra" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@gtbcreates" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/bibek-patra-932213293" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/thesideincomeguru" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/918280482686" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
         <div class="footer-links">
-            <a href="/about.html">About</a>
-            <a href="/contact.html">Contact</a>
-            <a href="/privacy.html">Privacy Policy</a>
-            <a href="/terms.html">Terms & Conditions</a>
+            <a href="about.html">About</a>
+            <a href="#contactSection">Contact</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
         </div>
         <div class="footer-copy">© 2026 Bibek Patra · Bibek Books</div>
     </footer>
@@ -1936,7 +2064,7 @@
         <div class="card-modal" style="max-width:420px;">
             <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;font-family:var(--font-display);">
                 💳 Checkout
-                <button onclick="closeBuy()" style="background:none;border:none;font-size:1.4rem;color:var(--text-secondary);">✕</button>
+                <button onclick="closeBuy()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-secondary);">✕</button>
             </h3>
             <div id="buyBody"></div>
         </div>
@@ -1947,7 +2075,7 @@
         <div class="card-modal" style="max-width:560px;">
             <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;font-family:var(--font-display);">
                 ✏️ Edit
-                <button onclick="closeAdminEditModal()" style="background:none;border:none;font-size:1.4rem;color:var(--text-secondary);">✕</button>
+                <button onclick="closeAdminEditModal()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-secondary);">✕</button>
             </h3>
             <input type="hidden" id="adminEditId">
             <input type="hidden" id="adminEditCollection">
@@ -1956,6 +2084,17 @@
                 <button class="btn btn-primary" onclick="confirmAdminEdit()">💾 Save</button>
                 <button class="btn btn-ghost" onclick="closeAdminEditModal()">Cancel</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div class="overlay" id="reviewModal" style="display:none;" onclick="if(event.target===this)closeReviewModal()">
+        <div class="card-modal" style="max-width:480px;">
+            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;font-family:var(--font-display);">
+                ✍️ Write a Review
+                <button onclick="closeReviewModal()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-secondary);">✕</button>
+            </h3>
+            <div id="reviewBody"></div>
         </div>
     </div>
 
@@ -1991,6 +2130,7 @@
         let userData = { wishlist: [], cart: [], purchased: [] };
         let isAuthor = false;
         let activeCat = 'All';
+        let currentBookId = null;
         const CATS = ['Spiritual', 'Fiction', 'Non-Fiction', 'Science', 'History', 'Poetry', 'Business'];
         const PALETTES = [
             ['#8b5cf6', '#6d28d9'],
@@ -2471,13 +2611,7 @@
             const doc = await docRef.get();
             let links = { facebook: '', twitter: '', instagram: '', youtube: '' };
             if (doc.exists && doc.data().social) links = doc.data().social;
-            const icons = { facebook: '📘', twitter: '🐦', instagram: '📸', youtube: '▶️' };
-            let html = '';
-            for (const [key, url] of Object.entries(links)) {
-                if (url) html += `<a href="${url}" target="_blank" rel="noopener">${icons[key] || '🔗'}</a>`;
-            }
-            document.getElementById('footerSocial').innerHTML = html;
-            document.getElementById('contactSocial').innerHTML = html;
+            // Social links are hardcoded in footer/contact for now
         }
 
         // ================================================================
@@ -2716,9 +2850,13 @@
             }
         };
 
+        // ================================================================
+        // BOOK DETAIL + REVIEWS
+        // ================================================================
         function openDetailModal(bookId) {
             const b = books.find(x => x.id === bookId);
             if (!b) { toast('Book not found', 'err'); return; }
+            currentBookId = bookId;
             document.getElementById('detailTitle').textContent = b.title;
             const body = document.getElementById('detailBody');
             const pr = calcPrice(b);
@@ -2734,6 +2872,7 @@
                     <div class="price-row">
                         ${b.isFree?'<span class="price-now">📖 Free</span>':`${pr.disc>0?`<span class="price-was">₹${pr.orig}</span>`:''}<span class="price-now">₹${pr.cur}</span>`}
                     </div>
+                    <div id="reviewsContainer"></div>
                 </div>
             `;
             const foot = document.getElementById('detailFoot');
@@ -2743,10 +2882,12 @@
             foot.innerHTML = `
                 <button class="btn btn-ghost btn-sm" onclick="window._toggleWishlist('${b.id}')">${isWishlisted?'❤️ Wishlisted':'🤍 Wishlist'}</button>
                 ${isPurchased||b.isFree?`<button class="btn btn-primary btn-sm" onclick="window._readBook('${b.id}')">📖 Read Now</button>`:`<button class="btn btn-primary btn-sm" onclick="window._addToCart('${b.id}')">${isInCart?'✓ In Cart':'🛒 Add to Cart'}</button>`}
+                ${(isPurchased||b.isFree)?`<button class="btn btn-gold btn-sm" onclick="openReviewModal('${b.id}')">✍️ Write Review</button>`:''}
                 ${isAuthor?`<button class="btn btn-gold btn-sm" onclick="closeDetailModal();openEditFromDetail('${b.id}')">✏️ Edit</button><button class="btn btn-danger btn-sm" onclick="closeDetailModal();adminDeleteBook('${b.id}')">🗑️ Delete</button>`:''}
                 <button class="btn btn-ghost btn-sm" onclick="closeDetailModal()">Close</button>
             `;
             document.getElementById('detailModal').style.display = 'flex';
+            loadReviews(bookId);
         }
 
         function closeDetailModal() { document.getElementById('detailModal').style.display = 'none'; }
@@ -2758,6 +2899,118 @@
             renderAuthorPanel();
             showAddBookForm({ ...b, id: bookId });
             document.getElementById('authorPanel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ================================================================
+        // REVIEW SYSTEM
+        // ================================================================
+        async function loadReviews(bookId) {
+            const container = document.getElementById('reviewsContainer');
+            if (!container) return;
+            try {
+                const snap = await db.collection('reviews')
+                    .where('bookId', '==', bookId)
+                    .orderBy('createdAt', 'desc')
+                    .get();
+                const reviews = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                let html = `<div class="reviews-section"><h4>📝 Reader Reviews</h4>`;
+                if (reviews.length === 0) {
+                    html += `<p style="color:var(--text-tertiary);font-size:0.9rem;">No reviews yet. Be the first to review this book!</p>`;
+                } else {
+                    reviews.forEach(r => {
+                        const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+                        html += `
+                            <div class="review-item">
+                                <div class="review-user">${esc(r.userName || 'Anonymous')}</div>
+                                <div style="color:var(--gold);font-size:0.9rem;">${stars}</div>
+                                <div class="review-text">${esc(r.text)}</div>
+                                <div class="review-date">${r.createdAt ? new Date(r.createdAt.toDate()).toLocaleDateString() : ''}</div>
+                            </div>
+                        `;
+                    });
+                }
+                html += `</div>`;
+                container.innerHTML = html;
+            } catch (e) {
+                console.warn('Error loading reviews:', e);
+                container.innerHTML =
+                    `<div class="reviews-section"><h4>📝 Reader Reviews</h4><p style="color:var(--text-tertiary);">Unable to load reviews.</p></div>`;
+            }
+        }
+
+        function openReviewModal(bookId) {
+            if (!currentUser) { toast('Please login to write a review', 'err');
+                openAuthModal(); return; }
+            const b = books.find(x => x.id === bookId);
+            if (!b) { toast('Book not found', 'err'); return; }
+            const m = document.getElementById('reviewModal');
+            const body = document.getElementById('reviewBody');
+            body.innerHTML = `
+                <div style="margin-bottom:1rem;">
+                    <p><strong>${esc(b.title)}</strong> by ${esc(b.author)}</p>
+                </div>
+                <div class="review-rating" id="reviewStars">
+                    ${[1,2,3,4,5].map(i => `<span class="star" data-rating="${i}" onclick="setReviewRating(${i})">★</span>`).join('')}
+                </div>
+                <div class="fg" style="margin-top:0.75rem;">
+                    <label>Your Review (max 100 characters)</label>
+                    <textarea id="reviewText" maxlength="100" placeholder="Share your thoughts about this book..." oninput="updateReviewCharCount()"></textarea>
+                    <div class="char-count" id="reviewCharCount">0 / 100</div>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;">
+                    <button class="btn btn-gold" onclick="submitReview('${bookId}')">✍️ Submit Review</button>
+                    <button class="btn btn-ghost" onclick="closeReviewModal()">Cancel</button>
+                </div>
+            `;
+            m.style.display = 'flex';
+        }
+
+        let reviewRating = 0;
+
+        function setReviewRating(rating) {
+            reviewRating = rating;
+            document.querySelectorAll('#reviewStars .star').forEach(el => {
+                const r = parseInt(el.dataset.rating);
+                el.classList.toggle('active', r <= rating);
+            });
+        }
+
+        function updateReviewCharCount() {
+            const textarea = document.getElementById('reviewText');
+            const count = document.getElementById('reviewCharCount');
+            if (!textarea || !count) return;
+            const len = textarea.value.length;
+            count.textContent = `${len} / 100`;
+            count.className = 'char-count' + (len > 90 ? ' warning' : '') + (len >= 100 ? ' danger' : '');
+        }
+
+        async function submitReview(bookId) {
+            const text = document.getElementById('reviewText')?.value.trim();
+            if (!text) { toast('Please write a review.', 'err'); return; }
+            if (text.length < 3) { toast('Review must be at least 3 characters.', 'err'); return; }
+            if (reviewRating === 0) { toast('Please select a rating.', 'err'); return; }
+            if (!currentUser) { toast('Please login first.', 'err'); return; }
+
+            try {
+                await db.collection('reviews').add({
+                    bookId: bookId,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName || currentUser.email || 'Anonymous',
+                    text: text,
+                    rating: reviewRating,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                toast('✅ Review submitted! Thank you.');
+                closeReviewModal();
+                loadReviews(bookId);
+            } catch (e) {
+                toast('❌ Error submitting review: ' + e.message, 'err');
+            }
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+            reviewRating = 0;
         }
 
         // ================================================================
@@ -2858,20 +3111,20 @@
         }
 
         // ================================================================
-        // CONTACT FORM
+        // CONTACT FORM - Formspree
         // ================================================================
-        document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('contactName').value.trim();
-            const email = document.getElementById('contactEmail').value.trim();
-            const message = document.getElementById('contactMessage').value.trim();
-            if (!name || !email || !message) { toast('Please fill all fields.', 'err'); return; }
-            try {
-                await db.collection('contactMessages').add({ name, email, message,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-                toast('Message sent successfully!', 'ok');
-                document.getElementById('contactForm').reset();
-            } catch (err) { toast('Failed to send message. Please try again.', 'err'); }
+        document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+            // Formspree handles submission natively
+            // We just show a toast on success (handled by redirect)
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+            // Re-enable after a moment (will redirect on success)
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 5000);
         });
 
         // ================================================================
@@ -2903,7 +3156,6 @@
             document.getElementById('adminPanelFull').style.display = 'none';
         }
 
-        // Admin tabs
         document.addEventListener('click', (e) => {
             const tab = e.target.closest('[data-admin-tab]');
             if (tab) {
@@ -3014,7 +3266,6 @@
             } catch (e) { toast('Error: ' + e.message, 'err'); }
         }
 
-        // Admin CRUD helpers
         async function getBooksFromDB() {
             const snap = await db.collection('books').get();
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -3030,7 +3281,6 @@
             return snap.docs.map(d => ({ id: d.id, ...d.data() }));
         }
 
-        // Admin add/edit/delete
         function adminAddBook() { showAdminEditModal('books'); }
 
         function adminAddAuthor() { showAdminEditModal('authors'); }
@@ -3064,7 +3314,6 @@
                 loadAdminBlog(); } catch (e) { toast('Error: ' + e.message, 'err'); }
         }
 
-        // Admin edit modal
         async function showAdminEditModal(collection, docId = null) {
             const modal = document.getElementById('adminEditModal');
             const form = document.getElementById('adminEditForm');
@@ -3194,7 +3443,6 @@
         // ================================================================
         function init() {
             initTheme();
-            loadSocialLinks();
             renderCatPills();
             renderTestimonials();
             renderBlog();
@@ -3214,9 +3462,10 @@
                 document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
             });
 
-            console.log('📚 Bibek Books – Premium Edition');
+            console.log('📚 Bibek Books – Premium Edition with Reviews');
             console.log('🔑 Author password: ' + getPass());
             console.log('🛡️ Admin panel: Click ⋮ → Admin Panel (login required)');
+            console.log('✍️ Write reviews after reading a book!');
         }
 
         // Global functions for onclick
@@ -3247,6 +3496,11 @@
         window.openDetailModal = openDetailModal;
         window.closeDetailModal = closeDetailModal;
         window.openEditFromDetail = openEditFromDetail;
+        window.openReviewModal = openReviewModal;
+        window.closeReviewModal = closeReviewModal;
+        window.submitReview = submitReview;
+        window.setReviewRating = setReviewRating;
+        window.updateReviewCharCount = updateReviewCharCount;
         window.requireAuthThen = requireAuthThen;
         window.signInWithGoogle = signInWithGoogle;
         window.doLogin = doLogin;
