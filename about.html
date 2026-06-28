@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About – Bibek Books</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* Copy the same CSS variables and base styles from index.html */
+        :root {
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --nav-h: 72px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
+        }
+        [data-theme="light"] {
+            --bg-primary: #faf8f6;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f0ebe4;
+            --bg-card: #ffffff;
+            --bg-overlay: rgba(255, 255, 255, 0.92);
+            --text-primary: #1a140e;
+            --text-secondary: #4a3f35;
+            --text-tertiary: #7a6e60;
+            --border-light: #e5ddd2;
+            --accent-primary: #7c3aed;
+            --accent-light: #ede9fe;
+            --gold: #d4af37;
+            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d878 30%, #c9a632 60%, #a8882e 100%);
+            --gradient-accent: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #0f0a1a;
+            --bg-secondary: #1a1128;
+            --bg-tertiary: #251a36;
+            --bg-card: #1a1128;
+            --bg-overlay: rgba(15, 10, 26, 0.94);
+            --text-primary: #f0eaff;
+            --text-secondary: #c4b5dc;
+            --text-tertiary: #a08cc5;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --accent-primary: #8b5cf6;
+            --accent-light: rgba(139, 92, 246, 0.15);
+            --gold: #d4af37;
+            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d878 30%, #c9a632 60%, #a8882e 100%);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background var(--transition-smooth), color var(--transition-smooth);
+            min-height: 100vh;
+        }
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+        a:hover {
+            color: var(--accent-primary);
+            opacity: 0.8;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+        /* Nav (same as index) */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            height: var(--nav-h);
+            background: var(--bg-overlay);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 12px;
+            width: 100%;
+        }
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-logo-mark {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 3px 16px rgba(212, 175, 55, 0.35);
+            color: #1a1128;
+        }
+        .nav-spacer {
+            flex: 1;
+        }
+        .nav-btns {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .nav-btn {
+            height: 44px;
+            border-radius: var(--radius-full);
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: var(--transition-fast);
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 0 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            position: relative;
+            white-space: nowrap;
+        }
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-full);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            transition: var(--transition-fast);
+        }
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 59, 255, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(108, 59, 255, 0.4);
+            color: #fff;
+        }
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            border: 1.5px solid var(--border-light);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+        /* Footer */
+        .site-footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--border-light);
+            padding: 32px 20px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin-top: 40px;
+            width: 100%;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+        }
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        .social-links-footer {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .social-links-footer a {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+        .social-links-footer a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        /* Page content */
+        .page-content {
+            padding: 3rem 0 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .page-content h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .page-content h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .page-content p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+        .page-content .highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .page-content .badge {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent-primary);
+            padding: 4px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 768px) {
+            .page-content h1 {
+                font-size: 2.2rem;
+            }
+            .page-content h2 {
+                font-size: 1.5rem;
+            }
+            .page-content p {
+                font-size: 0.95rem;
+            }
+            .nav-logo {
+                font-size: 1.3rem;
+            }
+            .nav-btn {
+                padding: 0 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAV ===== -->
+    <nav class="nav">
+        <a class="nav-logo" href="/"><span class="nav-logo-mark">📚</span>Bibek Books</a>
+        <div class="nav-spacer"></div>
+        <div class="nav-btns">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <a href="/" class="nav-btn">Home</a>
+        </div>
+    </nav>
+
+    <!-- ===== PAGE CONTENT ===== -->
+    <main class="container">
+        <div class="page-content">
+            <span class="badge">📖 About Us</span>
+            <h1>About Bibek Books</h1>
+            <p>
+                <strong>Bibek Books</strong> is a premium digital library curated by <span class="highlight">Bibek Patra</span> —
+                an entrepreneur, full-stack developer, author, and technology innovator based in Mayurbhanj, Odisha, India.
+            </p>
+            <p>
+                As the founder of <strong>BibekBook</strong>, <strong>Gengram</strong>, <strong>Vivika AI</strong>, and
+                <strong>Krayvo</strong>, Bibek builds digital solutions that bridge the gap between creativity and
+                cutting-edge technology. His work spans publishing, artificial intelligence, social networking,
+                e-commerce, web development, digital marketing, and 3D design.
+            </p>
+            <h2>Our Mission</h2>
+            <p>
+                To make knowledge accessible to everyone. We curate a diverse collection of books across
+                <strong>Spiritual, Fiction, Non-Fiction, Science, History, Poetry, and Business</strong> —
+                offering both free and paid titles to suit every reader.
+            </p>
+            <h2>What We Offer</h2>
+            <p>
+                📚 <strong>Curated Library</strong> — Handpicked books by Bibek and guest authors.<br />
+                🆓 <strong>Free Titles</strong> — Read without spending a rupee.<br />
+                💳 <strong>Easy Checkout</strong> — Secure payments via Razorpay.<br />
+                ❤️ <strong>Wishlist & Cart</strong> — Save your favourites and buy with one click.<br />
+                ✍️ <strong>Reader Reviews</strong> — Share your thoughts and help others discover great books.<br />
+                🔐 <strong>Author Studio</strong> — For authors to publish and manage their books.<br />
+                🛡️ <strong>Admin Panel</strong> — Full content management for books, authors, and blog posts.
+            </p>
+            <h2>Connect With Us</h2>
+            <p>
+                We'd love to hear from you! Reach out via email, WhatsApp, or social media.
+            </p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:1rem;">
+                <a href="mailto:inboxtobibek@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://wa.me/918280482686" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://www.instagram.com/itsbibekpatra" target="_blank" class="btn btn-ghost"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://youtube.com/@gtbcreates" target="_blank" class="btn btn-ghost"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="https://www.linkedin.com/in/bibek-patra-932213293" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="social-links-footer">
+            <a href="https://www.instagram.com/itsbibekpatra" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@gtbcreates" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/bibek-patra-932213293" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/thesideincomeguru" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/918280482686" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="about.html">About</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+        <div class="footer-copy">© 2026 Bibek Patra · Bibek Books</div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const toggle = document.getElementById('themeToggle');
+        const saved = localStorage.getItem('bibek-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+        const icon = toggle.querySelector('i');
+        icon.className = saved === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+        toggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('bibek-theme', next);
+            icon.className = next === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+    </script>
+</body>
+</html>
