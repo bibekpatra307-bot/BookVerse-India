@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy – Bibek Books</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* Same styles as about.html — copy from above */
+        :root {
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --nav-h: 72px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
+        }
+        [data-theme="light"] {
+            --bg-primary: #faf8f6;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f0ebe4;
+            --bg-card: #ffffff;
+            --bg-overlay: rgba(255, 255, 255, 0.92);
+            --text-primary: #1a140e;
+            --text-secondary: #4a3f35;
+            --text-tertiary: #7a6e60;
+            --border-light: #e5ddd2;
+            --accent-primary: #7c3aed;
+            --accent-light: #ede9fe;
+            --gold: #d4af37;
+            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d878 30%, #c9a632 60%, #a8882e 100%);
+            --gradient-accent: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --text-muted: #a89888;
+        }
+        [data-theme="dark"] {
+            --bg-primary: #0f0a1a;
+            --bg-secondary: #1a1128;
+            --bg-tertiary: #251a36;
+            --bg-card: #1a1128;
+            --bg-overlay: rgba(15, 10, 26, 0.94);
+            --text-primary: #f0eaff;
+            --text-secondary: #c4b5dc;
+            --text-tertiary: #a08cc5;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --accent-primary: #8b5cf6;
+            --accent-light: rgba(139, 92, 246, 0.15);
+            --gold: #d4af37;
+            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d878 30%, #c9a632 60%, #a8882e 100%);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --text-muted: #6b5b80;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background var(--transition-smooth), color var(--transition-smooth);
+            min-height: 100vh;
+        }
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+        a:hover {
+            color: var(--accent-primary);
+            opacity: 0.8;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            height: var(--nav-h);
+            background: var(--bg-overlay);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 12px;
+            width: 100%;
+        }
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-logo-mark {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 3px 16px rgba(212, 175, 55, 0.35);
+            color: #1a1128;
+        }
+        .nav-spacer {
+            flex: 1;
+        }
+        .nav-btns {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .nav-btn {
+            height: 44px;
+            border-radius: var(--radius-full);
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: var(--transition-fast);
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 0 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            position: relative;
+            white-space: nowrap;
+        }
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-full);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            transition: var(--transition-fast);
+        }
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+        }
+        .site-footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--border-light);
+            padding: 32px 20px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin-top: 40px;
+            width: 100%;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+        }
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        .social-links-footer {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .social-links-footer a {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+        .social-links-footer a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .page-content {
+            padding: 3rem 0 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .page-content h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .page-content h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .page-content p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+        .page-content .badge {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent-primary);
+            padding: 4px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .page-content ul {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .page-content ul li {
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .page-content h1 {
+                font-size: 2.2rem;
+            }
+            .page-content h2 {
+                font-size: 1.5rem;
+            }
+            .page-content p,
+            .page-content ul {
+                font-size: 0.95rem;
+            }
+            .nav-logo {
+                font-size: 1.3rem;
+            }
+            .nav-btn {
+                padding: 0 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAV ===== -->
+    <nav class="nav">
+        <a class="nav-logo" href="/"><span class="nav-logo-mark">📚</span>Bibek Books</a>
+        <div class="nav-spacer"></div>
+        <div class="nav-btns">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <a href="/" class="nav-btn">Home</a>
+        </div>
+    </nav>
+
+    <!-- ===== PAGE CONTENT ===== -->
+    <main class="container">
+        <div class="page-content">
+            <span class="badge">🔒 Privacy Policy</span>
+            <h1>Privacy Policy</h1>
+            <p><strong>Last updated:</strong> June 28, 2026</p>
+            <p>
+                Bibek Books ("we", "our", "us") respects your privacy and is committed to protecting
+                your personal data. This privacy policy explains how we collect, use, and safeguard
+                your information when you visit our website.
+            </p>
+
+            <h2>Information We Collect</h2>
+            <p>We may collect the following types of information:</p>
+            <ul>
+                <li><strong>Personal Data:</strong> Name, email address, phone number, and payment information (processed securely via Razorpay).</li>
+                <li><strong>Usage Data:</strong> Pages visited, time spent, and interactions with our site.</li>
+                <li><strong>Device Data:</strong> IP address, browser type, and device information.</li>
+            </ul>
+
+            <h2>How We Use Your Information</h2>
+            <ul>
+                <li>To provide and maintain our services.</li>
+                <li>To process transactions and send order confirmations.</li>
+                <li>To send you updates, newsletters, and promotional materials (only with your consent).</li>
+                <li>To improve our website and user experience.</li>
+                <li>To comply with legal obligations.</li>
+            </ul>
+
+            <h2>Data Security</h2>
+            <p>
+                We implement appropriate technical and organizational measures to protect your
+                personal data against unauthorized access, alteration, disclosure, or destruction.
+                All payment transactions are processed through <strong>Razorpay</strong>, which is
+                PCI-DSS compliant.
+            </p>
+
+            <h2>Third-Party Services</h2>
+            <p>We use the following third-party services:</p>
+            <ul>
+                <li><strong>Firebase</strong> — For authentication and database storage.</li>
+                <li><strong>Razorpay</strong> — For payment processing.</li>
+                <li><strong>Formspree</strong> — For contact form submissions.</li>
+                <li><strong>Google Fonts</strong> — For typography.</li>
+            </ul>
+
+            <h2>Cookies</h2>
+            <p>
+                We use cookies to enhance your experience on our site. You can control cookie
+                preferences through your browser settings.
+            </p>
+
+            <h2>Your Rights</h2>
+            <p>
+                You have the right to access, update, or delete your personal data at any time.
+                Please contact us at <a href="mailto:inboxtobibek@gmail.com">inboxtobibek@gmail.com</a>
+                for any privacy-related requests.
+            </p>
+
+            <h2>Contact Us</h2>
+            <p>
+                If you have any questions about this Privacy Policy, please contact us:
+            </p>
+            <p>
+                <strong>Email:</strong> <a href="mailto:inboxtobibek@gmail.com">inboxtobibek@gmail.com</a><br />
+                <strong>Phone:</strong> +91 8280482686
+            </p>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="social-links-footer">
+            <a href="https://www.instagram.com/itsbibekpatra" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@gtbcreates" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/bibek-patra-932213293" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/thesideincomeguru" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/918280482686" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="about.html">About</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+        <div class="footer-copy">© 2026 Bibek Patra · Bibek Books</div>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        const saved = localStorage.getItem('bibek-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', saved);
+        const icon = toggle.querySelector('i');
+        icon.className = saved === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+        toggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('bibek-theme', next);
+            icon.className = next === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+    </script>
+</body>
+</html>
