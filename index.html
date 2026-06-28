@@ -1,121 +1,118 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bibek Books – Digital Library</title>
-    <meta name="description" content="Bibek Patra's digital library: Download spiritual, fiction, non-fiction and science books.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Bibek Books – Premium Digital Library</title>
+    <meta name="description" content="Bibek Patra's digital library: Download spiritual, fiction, non-fiction and science books. Read free ebooks or buy at low prices." />
+    <meta name="keywords" content="Bibek Books, digital library, ebook store, spiritual books, fiction books, science books, Bibek Patra" />
+    <link rel="canonical" href="https://bibekbook.store/" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bibekbook.store/" />
+    <meta property="og:title" content="Bibek Books – Premium Digital Library" />
+    <meta property="og:description" content="Curated books by Bibek Patra – read online or download." />
+    <meta property="og:image" content="https://bibekbook.store/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js">
+    </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js">
+    </script>
+
     <style>
         /* ================================================================
            THEME VARIABLES
            ================================================================ */
         :root {
-            --font-display: 'Cormorant Garamond', Georgia, serif;
-            --font-body: 'Outfit', -apple-system, sans-serif;
-
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.55);
-            --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.6);
-
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 24px;
             --radius-xl: 32px;
             --radius-full: 9999px;
-
-            --nav-h: 70px;
+            --nav-h: 72px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
+            --shadow-xl: 0 30px 80px rgba(0, 0, 0, 0.24);
         }
 
         /* Light Theme */
         [data-theme="light"] {
-            --bg-primary: #f5f2ed;
+            --bg-primary: #faf8f6;
             --bg-secondary: #ffffff;
-            --bg-tertiary: #ede8e0;
+            --bg-tertiary: #f0ebe4;
             --bg-card: #ffffff;
             --bg-elevated: #ffffff;
             --bg-overlay: rgba(255, 255, 255, 0.92);
-            --bg-skeleton: #e5dfd6;
-            --bg-skeleton-shine: #f0ebe3;
-
+            --bg-skeleton: #e8e0d6;
+            --bg-skeleton-shine: #f5f0ea;
             --text-primary: #1a140e;
             --text-secondary: #4a3f35;
             --text-tertiary: #7a6e60;
-            --text-inverse: #f5f2ed;
+            --text-inverse: #faf8f6;
             --text-muted: #a89888;
-
             --border-light: #e5ddd2;
             --border-medium: #ccc2b5;
             --border-strong: #b0a394;
-
-            --accent-primary: #8b6914;
-            --accent-primary-hover: #6b4f0e;
-            --accent-primary-light: #f5ecd7;
-            --accent-gold: #d4af37;
-            --accent-gold-light: #fdf6e3;
-            --accent-deep: #3d2b0f;
-
-            --gradient-hero: linear-gradient(135deg, #1a140e 0%, #3d2b0f 40%, #5a3e14 70%, #1a140e 100%);
-            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d878 30%, #c9a632 60%, #a8882e 100%);
-
-            --violet: #7c3aed;
-            --violet2: #8b5cf6;
-            --emerald: #10b981;
-            --rose: #ef4444;
-            --amber: #f59e0b;
+            --accent-primary: #7c3aed;
+            --accent-hover: #6d28d9;
+            --accent-light: #ede9fe;
             --gold: #d4af37;
-            --gold2: #f7d44a;
-            --text3: #7a6e60;
-            --text2: #4a3f35;
+            --gold-light: #fdf6e3;
+            --gold-dark: #b8941e;
+            --gradient-hero: linear-gradient(145deg, #f5f0ea 0%, #ede8e0 50%, #e8e0d6 100%);
+            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d878 30%, #c9a632 60%, #a8882e 100%);
+            --gradient-accent: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-card-hover: 0 12px 40px rgba(108, 59, 255, 0.15);
         }
 
         /* Dark Theme (default) */
         [data-theme="dark"] {
-            --bg-primary: #1a0f2e;
-            --bg-secondary: #231538;
-            --bg-tertiary: #2d1b45;
-            --bg-card: #2a1a3f;
-            --bg-elevated: #33204d;
-            --bg-overlay: rgba(26, 15, 46, 0.92);
-            --bg-skeleton: #2a1a3f;
-            --bg-skeleton-shine: #3d2855;
-
-            --text-primary: #f0e6ff;
+            --bg-primary: #0f0a1a;
+            --bg-secondary: #1a1128;
+            --bg-tertiary: #251a36;
+            --bg-card: #1a1128;
+            --bg-elevated: #251a36;
+            --bg-overlay: rgba(15, 10, 26, 0.94);
+            --bg-skeleton: #251a36;
+            --bg-skeleton-shine: #35264a;
+            --text-primary: #f0eaff;
             --text-secondary: #c4b5dc;
             --text-tertiary: #a08cc5;
-            --text-inverse: #1a0f2e;
+            --text-inverse: #0f0a1a;
             --text-muted: #6b5b80;
-
-            --border-light: rgba(255, 255, 255, 0.1);
-            --border-medium: rgba(255, 255, 255, 0.18);
-            --border-strong: rgba(255, 255, 255, 0.3);
-
-            --accent-primary: #d4af37;
-            --accent-primary-hover: #e8c84a;
-            --accent-primary-light: #2e2818;
-            --accent-gold: #d4af37;
-            --accent-gold-light: #2a2414;
-            --accent-deep: #f0efe9;
-
-            --gradient-hero: linear-gradient(135deg, #0a0a08 0%, #1a1408 40%, #2a1f0a 70%, #0a0a08 100%);
-            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d878 30%, #c9a632 60%, #a8882e 100%);
-
-            --violet: #8b5cf6;
-            --violet2: #a78bfa;
-            --emerald: #10b981;
-            --rose: #ef4444;
-            --amber: #f59e0b;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --border-medium: rgba(255, 255, 255, 0.15);
+            --border-strong: rgba(255, 255, 255, 0.25);
+            --accent-primary: #8b5cf6;
+            --accent-hover: #7c3aed;
+            --accent-light: rgba(139, 92, 246, 0.15);
             --gold: #d4af37;
-            --gold2: #f7d44a;
-            --text3: #a08cc5;
-            --text2: #c4b5dc;
+            --gold-light: rgba(212, 175, 55, 0.12);
+            --gold-dark: #b8941e;
+            --gradient-hero: linear-gradient(145deg, #0f0a1a 0%, #1a1128 40%, #251a36 70%, #0f0a1a 100%);
+            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f0d878 30%, #c9a632 60%, #a8882e 100%);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-card-hover: 0 12px 40px rgba(108, 59, 255, 0.25);
         }
 
         /* ================================================================
@@ -126,6 +123,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         html,
         body {
             height: 100%;
@@ -138,8 +136,9 @@
             font-size: 16px;
             transition: background var(--transition-smooth), color var(--transition-smooth);
         }
+
         ::selection {
-            background: rgba(139, 92, 246, 0.3);
+            background: var(--accent-primary);
             color: #fff;
         }
 
@@ -157,6 +156,39 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--border-strong);
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ================================================================
+           UTILITY
+           ================================================================ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        .text-gold {
+            color: var(--gold);
+        }
+        .text-accent {
+            color: var(--accent-primary);
+        }
+        .bg-accent {
+            background: var(--gradient-accent);
         }
 
         /* ================================================================
@@ -204,18 +236,113 @@
         .skeleton-line.short {
             width: 60%;
         }
-        .skeleton-line.medium {
-            width: 80%;
+
+        /* ================================================================
+           BUTTONS
+           ================================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
         }
-        .skeleton-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 59, 255, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(108, 59, 255, 0.4);
+            color: #fff;
+        }
+        .btn-gold {
+            background: var(--gradient-gold);
+            color: #1a1128;
+            font-weight: 700;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(212, 175, 55, 0.4);
+            color: #1a1128;
+        }
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            border: 1.5px solid var(--border-light);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            border-color: var(--border-medium);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-primary);
+            border: 1.5px solid var(--accent-primary);
+        }
+        .btn-outline:hover {
+            background: var(--accent-primary);
+            color: #fff;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(239, 68, 68, 0.4);
+        }
+        .btn-sm {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+        }
+        .btn-lg {
+            padding: 14px 34px;
+            font-size: 1.05rem;
+        }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-google {
+            background: #fff;
+            color: #333;
+            border: 1px solid #ddd;
+            font-weight: 500;
+            padding: 12px 20px;
+            width: 100%;
+            justify-content: center;
+            border-radius: var(--radius-full);
+            font-size: 0.95rem;
+        }
+        .btn-google:hover {
+            background: #f5f5f5;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transform: none;
+        }
+        [data-theme="dark"] .btn-google {
+            background: #2a1a3f;
+            color: #fff;
+            border-color: var(--border-medium);
+        }
+        [data-theme="dark"] .btn-google:hover {
+            background: #35264a;
         }
 
         /* ================================================================
-           NAV
+           NAVIGATION
            ================================================================ */
         .nav {
             position: sticky;
@@ -223,8 +350,8 @@
             z-index: 200;
             height: var(--nav-h);
             background: var(--bg-overlay);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-light);
             display: flex;
             align-items: center;
@@ -235,11 +362,11 @@
             transition: all var(--transition-smooth);
         }
         .nav.scrolled {
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-sm);
         }
         .nav-logo {
             font-family: var(--font-display);
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--gold);
             display: flex;
@@ -250,17 +377,17 @@
             flex-shrink: 0;
         }
         .nav-logo-mark {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             background: var(--gradient-gold);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             flex-shrink: 0;
-            box-shadow: 0 3px 16px rgba(212, 175, 55, 0.45);
-            color: #1a0f2e;
+            box-shadow: 0 3px 16px rgba(212, 175, 55, 0.35);
+            color: #1a1128;
         }
         .nav-spacer {
             flex: 1;
@@ -283,52 +410,52 @@
             transition: var(--transition-fast);
             font-family: inherit;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             padding: 0 14px;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-secondary);
             position: relative;
             white-space: nowrap;
         }
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
             border-color: var(--border-medium);
         }
         .nav-btn-icon {
             width: 44px;
             padding: 0;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
         }
-        .nav-btn-icon .badge-dot {
+        .badge-dot {
             position: absolute;
             top: 4px;
             right: 4px;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: var(--rose);
+            background: #ef4444;
             border: 2px solid var(--bg-primary);
             display: none;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
         }
-        .nav-btn-icon .badge-dot.show {
+        .badge-dot.show {
             display: block;
             animation: pulse-dot 1.5s infinite;
         }
         @keyframes pulse-dot {
             0%,
             100% {
-                box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+                box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
             }
             50% {
-                box-shadow: 0 0 18px rgba(239, 68, 68, 1);
+                box-shadow: 0 0 18px rgba(239, 68, 68, 0.9);
             }
         }
 
-        /* Theme toggle */
+        /* Theme Toggle */
         .theme-toggle {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-light);
             border-radius: var(--radius-full);
             width: 44px;
@@ -338,11 +465,11 @@
             justify-content: center;
             cursor: pointer;
             color: var(--text-secondary);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             transition: var(--transition-fast);
         }
         .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
             border-color: var(--border-medium);
         }
@@ -358,7 +485,7 @@
             background: var(--bg-elevated);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-lg);
-            min-width: 230px;
+            min-width: 220px;
             padding: 8px;
             display: none;
             z-index: 260;
@@ -371,15 +498,15 @@
         @keyframes dropIn {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(-8px) scale(0.96);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
         .dropdown-item {
-            padding: 12px 18px;
+            padding: 10px 16px;
             border-radius: var(--radius-sm);
             cursor: pointer;
             display: flex;
@@ -399,12 +526,12 @@
             background: rgba(255, 255, 255, 0.08);
             color: var(--text-primary);
         }
-        .dropdown-item.acc-item {
+        .dropdown-item.accent {
+            color: var(--accent-primary);
             font-weight: 600;
-            color: var(--gold);
         }
-        .dropdown-item.logout-item {
-            color: var(--rose);
+        .dropdown-item.danger {
+            color: #ef4444;
             font-weight: 600;
         }
         .dropdown-divider {
@@ -418,259 +545,119 @@
            ================================================================ */
         .hero {
             background: var(--gradient-hero);
-            color: #f0efe9;
             padding: 3rem 0 4rem;
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
         .hero::before {
             content: '';
             position: absolute;
-            top: -40%;
+            top: -30%;
             right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(108, 59, 255, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
         }
         .hero::after {
             content: '';
             position: absolute;
-            bottom: -30%;
+            bottom: -20%;
             left: -10%;
-            width: 500px;
-            height: 500px;
+            width: 400px;
+            height: 400px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
         }
-        .hero-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
+        .hero-content {
             position: relative;
             z-index: 1;
         }
-        .hero-content h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            line-height: 1.15;
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.02em;
-            color: #fff;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-light);
+            color: var(--accent-primary);
+            padding: 6px 20px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            border: 1px solid rgba(108, 59, 255, 0.15);
         }
-        .hero-content h1 .gold {
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+            font-weight: 700;
+            line-height: 1.12;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .hero h1 .gold {
             background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .hero-content p {
+        .hero p {
             font-size: 1.1rem;
-            color: var(--text-tertiary);
-            max-width: 480px;
+            color: var(--text-secondary);
+            max-width: 540px;
+            margin: 0 auto 20px;
             line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-        .hero-badge {
-            display: inline-flex;
-            gap: 6px;
-            background: rgba(212, 175, 55, 0.2);
-            color: var(--gold2);
-            padding: 4px 18px;
-            border-radius: var(--radius-full);
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.35);
         }
         .hero-stats {
             display: flex;
-            gap: 32px;
+            justify-content: center;
+            gap: 40px;
             flex-wrap: wrap;
-            margin-top: 0.5rem;
+            margin-top: 8px;
         }
         .hero-stat strong {
             font-family: var(--font-display);
-            font-size: 1.6rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--gold);
             display: block;
         }
         .hero-stat span {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-tertiary);
         }
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .hero-book-stack {
-            position: relative;
-            width: 240px;
-            height: 340px;
-        }
-        .hero-book {
-            position: absolute;
-            width: 180px;
-            height: 260px;
-            border-radius: 8px 18px 18px 8px;
-            box-shadow: var(--shadow-xl);
-            transition: all var(--transition-bounce);
-            background: linear-gradient(135deg, #f5f0e8, #e8dcc8);
-        }
-        .hero-book:nth-child(1) {
-            top: 0;
-            left: 0;
-            z-index: 3;
-            transform: rotate(-5deg);
-            background: linear-gradient(135deg, #d4af37, #c9a632);
-        }
-        .hero-book:nth-child(2) {
-            top: 30px;
-            left: 50px;
-            z-index: 2;
-            transform: rotate(2deg);
-            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-        }
-        .hero-book:nth-child(3) {
-            top: 60px;
-            left: 25px;
-            z-index: 1;
-            transform: rotate(8deg);
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-        .hero-book-stack:hover .hero-book:nth-child(1) {
-            transform: rotate(-8deg) translateX(-10px);
-        }
-        .hero-book-stack:hover .hero-book:nth-child(2) {
-            transform: rotate(5deg) translateY(-5px);
-        }
-        .hero-book-stack:hover .hero-book:nth-child(3) {
-            transform: rotate(12deg) translateX(8px);
-        }
-        @media (max-width: 768px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-content p {
-                margin: 0 auto 1.5rem;
-            }
-            .hero-stats {
-                justify-content: center;
-            }
-            .hero-visual {
-                display: none;
-            }
-            .hero {
-                padding: 2rem 0 2.5rem;
-            }
-            .hero-content h1 {
-                font-size: clamp(2rem, 6vw, 2.8rem);
-            }
-        }
 
         /* ================================================================
-           BUTTONS
+           SECTION HEADER
            ================================================================ */
-        .btn {
-            padding: 10px 26px;
-            border-radius: var(--radius-full);
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            transition: var(--transition-fast);
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
         }
-        .btn-primary {
-            background: var(--accent-primary);
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
-        }
-        .btn-primary:hover {
-            background: var(--accent-primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.45);
-        }
-        .btn-forest {
-            background: linear-gradient(135deg, var(--violet2), var(--violet));
-            color: #fff;
-        }
-        .btn-forest:hover {
-            box-shadow: 0 4px 18px rgba(139, 92, 246, 0.45);
-            transform: translateY(-2px);
-        }
-        .btn-amber {
-            background: var(--gradient-gold);
-            color: #1a0f2e;
+        .section-header .label {
+            display: inline-block;
+            font-size: 0.75rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-primary);
+            margin-bottom: 4px;
         }
-        .btn-amber:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 18px rgba(212, 175, 55, 0.5);
-        }
-        .btn-ghost {
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-light);
-        }
-        .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.14);
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
             color: var(--text-primary);
         }
-        .btn-ruby {
-            background: linear-gradient(135deg, var(--rose), #dc2626);
-            color: #fff;
-        }
-        .btn-ruby:hover {
-            box-shadow: 0 4px 18px rgba(239, 68, 68, 0.5);
-            transform: translateY(-2px);
-        }
-        .btn-sm {
-            padding: 6px 16px;
-            font-size: 0.8rem;
-        }
-        .btn-lg {
-            padding: 14px 34px;
-            font-size: 1.05rem;
-        }
-        .btn-google {
-            background: #fff;
-            color: #333;
-            border: 1px solid #ddd;
-            font-weight: 500;
-            padding: 12px 20px;
-            width: 100%;
-            justify-content: center;
-            border-radius: var(--radius-full);
-            font-size: 0.95rem;
-        }
-        .btn-google:hover {
-            background: #f5f5f5;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* ================================================================
-           MAIN
-           ================================================================ */
-        .main {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 20px 40px;
-            width: 100%;
+        .section-header p {
+            color: var(--text-tertiary);
+            max-width: 520px;
+            margin: 4px auto 0;
+            font-size: 1rem;
         }
 
         /* ================================================================
@@ -678,12 +665,12 @@
            ================================================================ */
         .author-panel {
             background: var(--bg-card);
-            border: 1.5px solid rgba(212, 175, 55, 0.3);
+            border: 1.5px solid rgba(212, 175, 55, 0.2);
             border-radius: var(--radius-lg);
             padding: 28px;
             margin-bottom: 28px;
             display: none;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-card);
             max-width: 100%;
         }
         .author-panel.open {
@@ -711,7 +698,7 @@
         .fg {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
         }
         .fg label {
             font-weight: 600;
@@ -728,7 +715,7 @@
             border-radius: var(--radius-sm);
             font-family: inherit;
             font-size: 0.95rem;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text-primary);
             outline: none;
             transition: var(--transition-fast);
@@ -737,9 +724,9 @@
         .fg input:focus,
         .fg textarea:focus,
         .fg select:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
-            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(108, 59, 255, 0.12);
+            background: rgba(255, 255, 255, 0.08);
         }
         .fg select option {
             background: var(--bg-elevated);
@@ -752,9 +739,16 @@
             padding: 12px 16px;
             border: 1.5px solid var(--border-light);
             border-radius: var(--radius-sm);
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             margin-bottom: 12px;
             color: var(--text-secondary);
+            cursor: pointer;
+        }
+        .check-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-primary);
+            cursor: pointer;
         }
 
         /* ================================================================
@@ -766,8 +760,8 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 14px;
-            margin-bottom: 22px;
-            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.02);
             padding: 16px 20px;
             border-radius: var(--radius-lg);
             border: 1px solid var(--border-light);
@@ -782,7 +776,7 @@
         }
         .section-title {
             font-family: var(--font-display);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
         }
@@ -797,16 +791,16 @@
             border-radius: var(--radius-full);
             font-size: 0.95rem;
             font-family: inherit;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text-primary);
             outline: none;
             width: 100%;
             transition: var(--transition-fast);
         }
         .section-search input:focus {
-            border-color: var(--violet2);
-            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
-            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(108, 59, 255, 0.12);
+            background: rgba(255, 255, 255, 0.08);
         }
         .section-search input::placeholder {
             color: var(--text-tertiary);
@@ -821,9 +815,7 @@
             font-size: 1rem;
         }
 
-        /* ================================================================
-           CATEGORY PILLS
-           ================================================================ */
+        /* Category Pills */
         .cat-pills {
             display: flex;
             gap: 8px;
@@ -833,7 +825,7 @@
             padding: 8px 20px;
             border-radius: var(--radius-full);
             border: 1.5px solid var(--border-light);
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             cursor: pointer;
             font-size: 0.85rem;
             font-family: inherit;
@@ -842,15 +834,15 @@
             white-space: nowrap;
         }
         .pill:hover {
-            border-color: var(--violet2);
+            border-color: var(--accent-primary);
             color: var(--text-primary);
-            background: rgba(139, 92, 246, 0.15);
+            background: var(--accent-light);
         }
         .pill.on {
-            background: linear-gradient(135deg, var(--violet2), var(--violet));
+            background: var(--gradient-accent);
             color: #fff;
-            border-color: var(--violet2);
-            box-shadow: 0 2px 12px rgba(139, 92, 246, 0.4);
+            border-color: var(--accent-primary);
+            box-shadow: 0 2px 12px rgba(108, 59, 255, 0.35);
         }
 
         /* ================================================================
@@ -859,7 +851,7 @@
         .book-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(min(220px, 45%), 1fr));
-            gap: 18px;
+            gap: 20px;
             max-width: 100%;
         }
         .book-card {
@@ -867,17 +859,17 @@
             border-radius: var(--radius-lg);
             overflow: hidden;
             border: 1px solid var(--border-light);
-            transition: var(--transition-smooth);
+            transition: all var(--transition-smooth);
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-card);
             max-width: 100%;
         }
         .book-card:hover {
             transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: var(--shadow-card-hover);
+            border-color: rgba(108, 59, 255, 0.25);
         }
         .book-cover {
             width: 100%;
@@ -905,7 +897,7 @@
         .cover-text {
             position: relative;
             z-index: 1;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
         }
         .book-badge {
             position: absolute;
@@ -916,21 +908,25 @@
             border-radius: var(--radius-full);
             font-size: 0.7rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
         .badge-free {
-            background: var(--emerald);
+            background: #10b981;
             color: #fff;
-            box-shadow: 0 2px 10px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
         }
         .badge-disc {
-            background: var(--rose);
+            background: #ef4444;
             color: #fff;
-            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.5);
+            box-shadow: 0 2px 10px rgba(239, 68, 68, 0.4);
         }
         .badge-featured {
-            background: var(--gold);
-            color: #1a0f2e;
-            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+            background: var(--gradient-gold);
+            color: #1a1128;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+            left: auto;
+            right: 10px;
         }
         .badge-read {
             position: absolute;
@@ -951,6 +947,8 @@
         .book-info {
             padding: 16px;
             flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .book-title {
             font-weight: 600;
@@ -965,14 +963,6 @@
         .book-author {
             font-size: 0.85rem;
             color: var(--text-tertiary);
-            margin-top: 2px;
-        }
-        .book-rating {
-            font-size: 0.75rem;
-            color: var(--gold);
-            display: flex;
-            align-items: center;
-            gap: 3px;
             margin-top: 2px;
         }
         .price-row {
@@ -1000,7 +990,7 @@
         }
         .c-btn {
             flex: 1;
-            border: 1px solid var(--border-light);
+            border: 1.5px solid var(--border-light);
             padding: 8px 10px;
             border-radius: var(--radius-full);
             font-size: 0.8rem;
@@ -1009,90 +999,55 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             font-family: inherit;
             text-decoration: none;
             color: var(--text-secondary);
             transition: var(--transition-fast);
             min-height: 36px;
+            gap: 4px;
         }
         .c-btn:hover {
-            background: rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
+            border-color: var(--border-medium);
         }
         .c-btn.wishlisted {
-            color: var(--rose);
-            border-color: rgba(239, 68, 68, 0.5);
-            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, 0.1);
         }
         .c-btn.buy-btn {
-            background: linear-gradient(135deg, var(--violet2), var(--violet));
+            background: var(--gradient-accent);
             color: #fff;
-            border-color: var(--violet2);
+            border-color: var(--accent-primary);
             font-weight: 600;
         }
         .c-btn.buy-btn:hover {
-            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 4px 16px rgba(108, 59, 255, 0.35);
+            background: var(--accent-hover);
         }
 
         /* ================================================================
-           PAGINATION
+           TESTIMONIALS & BLOG
            ================================================================ */
-        .pagination-wrap {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 28px;
-            flex-wrap: wrap;
-        }
-        .pagination-wrap button {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-full);
-            border: 1px solid var(--border-light);
-            background: var(--bg-secondary);
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition-fast);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.9rem;
-        }
-        .pagination-wrap button.active {
-            background: var(--gold);
-            color: #1a0f2e;
-            border-color: var(--gold);
-        }
-        .pagination-wrap button:hover:not(.active) {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .pagination-wrap button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        /* ================================================================
-           TESTIMONIALS
-           ================================================================ */
-        .testimonials-section {
-            margin-top: 3rem;
-            padding: 2rem 0;
-        }
-        .testimonials-grid {
+        .testimonials-grid,
+        .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 20px;
         }
-        .testimonial-card {
+        .testimonial-card,
+        .blog-card {
             background: var(--bg-card);
             border-radius: var(--radius-lg);
             border: 1px solid var(--border-light);
             padding: 1.8rem;
             transition: var(--transition-smooth);
         }
-        .testimonial-card:hover {
-            box-shadow: var(--shadow-md);
+        .testimonial-card:hover,
+        .blog-card:hover {
+            box-shadow: var(--shadow-card-hover);
             transform: translateY(-2px);
         }
         .testimonial-card .quote {
@@ -1108,7 +1063,7 @@
             content: '"';
             position: absolute;
             left: 0;
-            top: -8px;
+            top: -6px;
             font-family: var(--font-display);
             font-size: 2.8rem;
             color: var(--gold);
@@ -1124,53 +1079,27 @@
             color: var(--text-tertiary);
         }
 
-        /* ================================================================
-           BLOG
-           ================================================================ */
-        .blog-section {
-            margin-top: 3rem;
-            padding: 2rem 0;
-        }
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        .blog-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-light);
-            overflow: hidden;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-        }
-        .blog-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
         .blog-card-img {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
+            height: 160px;
+            border-radius: var(--radius-sm);
             background: var(--bg-tertiary);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
             color: var(--text-muted);
-        }
-        .blog-card-body {
-            padding: 1.5rem;
+            margin-bottom: 1rem;
         }
         .blog-card-body .date {
             font-size: 0.8rem;
             color: var(--text-tertiary);
-            margin-bottom: 0.4rem;
+            margin-bottom: 4px;
         }
         .blog-card-body h3 {
             font-family: var(--font-display);
             font-weight: 700;
-            margin-bottom: 0.4rem;
+            margin-bottom: 4px;
             font-size: 1.15rem;
             color: var(--text-primary);
         }
@@ -1186,10 +1115,6 @@
         /* ================================================================
            CONTACT
            ================================================================ */
-        .contact-section {
-            margin-top: 3rem;
-            padding: 2rem 0;
-        }
         .contact-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1206,7 +1131,7 @@
         .contact-layout .form-group label {
             display: block;
             font-weight: 600;
-            margin-bottom: 0.4rem;
+            margin-bottom: 4px;
             font-size: 0.85rem;
             color: var(--text-secondary);
         }
@@ -1225,8 +1150,8 @@
         .contact-layout .form-group input:focus,
         .contact-layout .form-group textarea:focus {
             outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(108, 59, 255, 0.1);
         }
         .contact-layout .form-group textarea {
             resize: vertical;
@@ -1243,12 +1168,12 @@
         }
         .contact-info .social-links {
             display: flex;
-            gap: 0.75rem;
+            gap: 12px;
             margin-top: 1rem;
         }
         .contact-info .social-links a {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: var(--radius-full);
             background: var(--bg-secondary);
             border: 1px solid var(--border-light);
@@ -1258,42 +1183,13 @@
             color: var(--text-secondary);
             transition: var(--transition-fast);
             text-decoration: none;
+            font-size: 1.2rem;
         }
         .contact-info .social-links a:hover {
-            background: var(--gold);
-            color: #1a0f2e;
-            border-color: var(--gold);
-        }
-
-        /* ================================================================
-           SECTION HEADER
-           ================================================================ */
-        .section-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-        .section-header .label {
-            display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--gold);
-            margin-bottom: 0.25rem;
-        }
-        .section-header h2 {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        .section-header p {
-            color: var(--text-tertiary);
-            max-width: 550px;
-            margin: 0 auto;
-            font-size: 1rem;
+            background: var(--gradient-accent);
+            color: #fff;
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
         }
 
         /* ================================================================
@@ -1303,18 +1199,19 @@
             position: fixed;
             inset: 0;
             z-index: 300;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            backdrop-filter: blur(4px);
         }
         .modal-box {
             background: var(--bg-elevated);
             border-radius: var(--radius-lg);
             width: 100%;
-            max-width: 660px;
+            max-width: 700px;
             max-height: 92vh;
             display: flex;
             flex-direction: column;
@@ -1326,7 +1223,7 @@
             background: var(--bg-elevated);
             border-radius: var(--radius-lg);
             max-width: 540px;
-            width: 90%;
+            width: 100%;
             max-height: 86vh;
             overflow-y: auto;
             padding: 28px;
@@ -1334,7 +1231,7 @@
             box-shadow: var(--shadow-xl);
         }
         .modal-head {
-            padding: 18px 24px;
+            padding: 16px 24px;
             border-bottom: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
@@ -1343,9 +1240,10 @@
         .modal-head h3 {
             color: var(--text-primary);
             font-size: 1.2rem;
+            font-family: var(--font-display);
         }
         .modal-close {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
             border: none;
             width: 38px;
             height: 38px;
@@ -1359,7 +1257,7 @@
             color: var(--text-secondary);
         }
         .modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             color: var(--text-primary);
         }
         .modal-foot {
@@ -1416,18 +1314,15 @@
         .book-detail-info .meta {
             font-size: 0.85rem;
             color: var(--text-tertiary);
-            margin-top: 4px;
+            margin-top: 2px;
         }
         .book-detail-info .desc {
             margin-top: 10px;
             font-size: 0.95rem;
             color: var(--text-secondary);
         }
-        .book-detail-info .price-row {
-            margin-top: 12px;
-        }
         .buy-summary {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             border-radius: var(--radius-sm);
             padding: 18px;
             margin-bottom: 20px;
@@ -1459,17 +1354,19 @@
             position: fixed;
             inset: 0;
             z-index: 400;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px);
+            padding: 20px;
         }
         .auth-card {
             background: var(--bg-elevated);
             border-radius: var(--radius-lg);
             max-width: 460px;
-            width: 92%;
+            width: 100%;
             padding: 32px 28px;
             text-align: center;
             border: 1px solid var(--border-light);
@@ -1490,7 +1387,8 @@
             justify-content: center;
             font-size: 1.8rem;
             margin: 0 auto 10px;
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.45);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+            color: #1a1128;
         }
         .auth-card h2 {
             font-family: var(--font-display);
@@ -1544,7 +1442,7 @@
             background: var(--border-light);
         }
         .auth-err {
-            color: var(--rose);
+            color: #ef4444;
             font-size: 0.82rem;
             text-align: left;
             display: none;
@@ -1573,13 +1471,13 @@
             font-size: 0.9rem;
         }
         .toast.ok {
-            background: linear-gradient(135deg, var(--emerald), #059669);
+            background: linear-gradient(135deg, #10b981, #059669);
         }
         .toast.err {
-            background: linear-gradient(135deg, var(--rose), #dc2626);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
         }
         .toast.info {
-            background: linear-gradient(135deg, var(--violet2), var(--violet));
+            background: var(--gradient-accent);
         }
         @keyframes slideInL {
             from {
@@ -1602,11 +1500,11 @@
            FOOTER
            ================================================================ */
         .site-footer {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border-top: 1px solid var(--border-light);
-            padding: 24px 20px;
+            padding: 32px 20px 20px;
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-tertiary);
             margin-top: 40px;
             width: 100%;
@@ -1615,14 +1513,15 @@
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 24px;
             flex-wrap: wrap;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.85rem;
+            transition: var(--transition-fast);
         }
         .footer-links a:hover {
             color: var(--gold);
@@ -1630,113 +1529,22 @@
         .social-links-footer {
             display: flex;
             justify-content: center;
-            gap: 14px;
-            margin-bottom: 8px;
+            gap: 16px;
+            margin-bottom: 12px;
         }
         .social-links-footer a {
             color: var(--text-secondary);
             font-size: 1.3rem;
             text-decoration: none;
+            transition: var(--transition-fast);
         }
         .social-links-footer a:hover {
             color: var(--gold);
+            transform: translateY(-2px);
         }
         .footer-copy {
             font-size: 0.75rem;
             color: var(--text-muted);
-        }
-
-        /* ================================================================
-           ADMIN PANEL (new)
-           ================================================================ */
-        .admin-panel-full {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-light);
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-        .admin-panel-full .admin-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            border-bottom: 1px solid var(--border-light);
-            padding-bottom: 1rem;
-        }
-        .admin-panel-full .admin-tab {
-            padding: 0.6rem 1.25rem;
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            font-weight: 500;
-            border: 1px solid transparent;
-            transition: var(--transition-fast);
-            font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-secondary);
-        }
-        .admin-panel-full .admin-tab.active {
-            background: var(--gold);
-            color: #1a0f2e;
-        }
-        .admin-panel-full .admin-tab:hover:not(.active) {
-            border-color: var(--gold);
-            color: var(--text-primary);
-        }
-        .admin-table-wrap {
-            overflow-x: auto;
-        }
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .admin-table th,
-        .admin-table td {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 0.9rem;
-            color: var(--text-primary);
-        }
-        .admin-table th {
-            font-weight: 700;
-            color: var(--text-tertiary);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-        .admin-table .actions {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
-        .admin-table .actions button {
-            padding: 0.3rem 0.75rem;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-light);
-            cursor: pointer;
-            font-size: 0.75rem;
-            transition: var(--transition-fast);
-            font-family: inherit;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-        }
-        .admin-table .actions button:hover {
-            background: rgba(255, 255, 255, 0.12);
-        }
-        .admin-table .actions .btn-edit-admin {
-            color: var(--gold);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-        .admin-table .actions .btn-edit-admin:hover {
-            background: rgba(212, 175, 55, 0.15);
-        }
-        .admin-table .actions .btn-del-admin {
-            color: var(--rose);
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-        .admin-table .actions .btn-del-admin:hover {
-            background: rgba(239, 68, 68, 0.15);
         }
 
         /* ================================================================
@@ -1782,7 +1590,7 @@
                 gap: 20px;
             }
             .hero-stat strong {
-                font-size: 1.4rem;
+                font-size: 1.6rem;
             }
             .author-panel {
                 padding: 16px;
@@ -1798,47 +1606,32 @@
             .book-detail-cover {
                 width: 100%;
                 height: auto;
-                max-width: 180px;
+                max-width: 160px;
             }
             .auth-card {
                 padding: 24px 18px;
-            }
-            .auth-card .logo-wrap .icon {
-                width: 48px;
-                height: 48px;
-                font-size: 1.4rem;
-            }
-            .auth-card h2 {
-                font-size: 1.3rem;
-            }
-            .btn {
-                font-size: 0.85rem;
-                padding: 8px 20px;
-            }
-            .c-btn {
-                font-size: 0.75rem;
-                min-height: 32px;
-                padding: 6px 8px;
-            }
-            .section-title {
-                font-size: 1.3rem;
-            }
-            .contact-layout {
-                grid-template-columns: 1fr;
             }
             .testimonials-grid,
             .blog-grid {
                 grid-template-columns: 1fr;
             }
-            .admin-panel-full {
-                padding: 1rem;
+            .contact-layout {
+                grid-template-columns: 1fr;
             }
-            .admin-table th,
-            .admin-table td {
-                padding: 0.5rem 0.6rem;
-                font-size: 0.8rem;
+            .container {
+                padding: 0 16px;
+            }
+            .hero {
+                padding: 2rem 0 3rem;
+            }
+            .hero h1 {
+                font-size: clamp(2rem, 5vw, 2.6rem);
+            }
+            .section-title {
+                font-size: 1.3rem;
             }
         }
+
         @media (max-width: 480px) {
             .book-grid {
                 grid-template-columns: 1fr 1fr;
@@ -1861,17 +1654,17 @@
                 height: 36px;
                 font-size: 0.9rem;
             }
-            .hero-content h1 {
-                font-size: clamp(1.6rem, 4vw, 2.2rem);
+            .hero h1 {
+                font-size: clamp(1.6rem, 4vw, 2rem);
             }
             .hero p {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
             }
             .hero-stats {
-                gap: 14px;
+                gap: 16px;
             }
             .hero-stat strong {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             .auth-card {
                 padding: 18px 14px;
@@ -1885,15 +1678,6 @@
             }
         }
     </style>
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js">
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js">
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js">
-    </script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js">
-    </script>
 </head>
 <body>
 
@@ -1920,16 +1704,16 @@
     <!-- ===== AUTHOR PASSWORD MODAL ===== -->
     <div id="authorPassModal" style="display:none" class="auth-overlay" onclick="if(event.target===this)closeAuthorPassModal()">
         <div class="card-modal" style="max-width:400px;text-align:center;">
-            <h3 style="color:var(--gold);margin-bottom:16px;">🔐 Author Access</h3>
+            <h3 style="color:var(--gold);margin-bottom:16px;font-family:var(--font-display);">🔐 Author Access</h3>
             <div class="fg" style="margin-bottom:14px;">
                 <label>Enter Author Password</label>
                 <input type="password" id="authorPassInput" placeholder="••••••" style="text-align:center;width:100%;">
             </div>
             <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-                <button class="btn btn-amber" onclick="verifyAuthorPass()">Unlock</button>
+                <button class="btn btn-gold" onclick="verifyAuthorPass()">Unlock</button>
                 <button class="btn btn-ghost" onclick="closeAuthorPassModal()">Cancel</button>
             </div>
-            <p id="authorPassError" style="color:var(--rose);font-size:0.8rem;margin-top:8px;display:none;"></p>
+            <p id="authorPassError" style="color:#ef4444;font-size:0.8rem;margin-top:8px;display:none;"></p>
         </div>
     </div>
 
@@ -1950,11 +1734,11 @@
             <div class="dropdown-wrap" id="dropdownWrap">
                 <button class="nav-btn nav-btn-icon" id="dropdownBtn" onclick="toggleDropdown()">⋮</button>
                 <div class="dropdown-menu" id="dropdownMenu">
-                    <button class="dropdown-item acc-item" id="dropAccount" onclick="handleAccountClick()">👤 Account</button>
-                    <button class="dropdown-item logout-item" id="dropLogout" style="display:none;" onclick="handleLogout()">🚪 Logout</button>
+                    <button class="dropdown-item accent" id="dropAccount" onclick="handleAccountClick()">👤 Account</button>
+                    <button class="dropdown-item danger" id="dropLogout" style="display:none;" onclick="handleLogout()">🚪 Logout</button>
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" id="dropAuthor" onclick="handleAuthorClick()">✍️ Author Studio</button>
-                    <button class="dropdown-item" id="dropAuthorLogout" style="display:none;color:var(--amber);font-weight:600;" onclick="handleAuthorLogout()">🔒 Lock Panel</button>
+                    <button class="dropdown-item" id="dropAuthorLogout" style="display:none;color:var(--gold);font-weight:600;" onclick="handleAuthorLogout()">🔒 Lock Panel</button>
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" id="dropAdmin" onclick="handleAdminClick()">🛡️ Admin Panel</button>
                 </div>
@@ -1963,8 +1747,8 @@
     </nav>
 
     <!-- ===== HERO ===== -->
-    <div class="hero">
-        <div class="hero-container">
+    <section class="hero">
+        <div class="container">
             <div class="hero-content">
                 <div class="hero-badge">✨ Discover · Read · Collect</div>
                 <h1>Your Personal<br><span class="gold">Digital Library</span></h1>
@@ -1975,18 +1759,11 @@
                     <div class="hero-stat"><strong id="statFree">0</strong><span>Free Titles</span></div>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="hero-book-stack">
-                    <div class="hero-book"></div>
-                    <div class="hero-book"></div>
-                    <div class="hero-book"></div>
-                </div>
-            </div>
         </div>
-    </div>
+    </section>
 
     <!-- ===== MAIN ===== -->
-    <div class="main">
+    <main class="container" style="padding-top:1.5rem;">
 
         <!-- Author Panel -->
         <div class="author-panel" id="authorPanel">
@@ -1998,34 +1775,34 @@
         </div>
 
         <!-- Admin Panel -->
-        <div class="admin-panel-full" id="adminPanelFull" style="display:none;">
+        <div class="author-panel" id="adminPanelFull" style="display:none;border-color:rgba(108,59,255,0.3);">
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
-                <h2 style="font-family:var(--font-display);color:var(--gold);"><i class="fas fa-user-shield"></i> Admin Panel</h2>
+                <h2 style="font-family:var(--font-display);color:var(--accent-primary);"><i class="fas fa-user-shield"></i> Admin Panel</h2>
                 <button class="btn btn-ghost btn-sm" onclick="closeAdminPanel()"><i class="fas fa-times"></i> Close</button>
             </div>
-            <div class="admin-tabs">
-                <span class="admin-tab active" data-admin-tab="books">📚 Books</span>
-                <span class="admin-tab" data-admin-tab="authors">👤 Authors</span>
-                <span class="admin-tab" data-admin-tab="blog">📝 Blog</span>
-                <span class="admin-tab" data-admin-tab="featured">⭐ Featured</span>
+            <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--border-light);padding-bottom:1rem;">
+                <span class="pill on" data-admin-tab="books">📚 Books</span>
+                <span class="pill" data-admin-tab="authors">👤 Authors</span>
+                <span class="pill" data-admin-tab="blog">📝 Blog</span>
+                <span class="pill" data-admin-tab="featured">⭐ Featured</span>
             </div>
             <div id="adminTabBooks">
-                <button class="btn btn-forest btn-sm mb-2" onclick="adminAddBook()"><i class="fas fa-plus"></i> Add Book</button>
-                <div class="admin-table-wrap"><table class="admin-table" id="adminBooksTable"><thead><tr><th>Cover</th><th>Title</th><th>Author</th><th>Price</th><th>Actions</th></tr></thead><tbody><tr><td colspan="5" class="text-center">Loading...</td></tr></tbody></table></div>
+                <button class="btn btn-primary btn-sm" style="margin-bottom:0.75rem;" onclick="adminAddBook()"><i class="fas fa-plus"></i> Add Book</button>
+                <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;" id="adminBooksTable"><thead><tr><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Cover</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Title</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Author</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Price</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Actions</th></tr></thead><tbody><tr><td colspan="5" style="text-align:center;padding:1rem;color:var(--text-tertiary);">Loading...</td></tr></tbody></table></div>
             </div>
             <div id="adminTabAuthors" style="display:none;">
-                <button class="btn btn-forest btn-sm mb-2" onclick="adminAddAuthor()"><i class="fas fa-plus"></i> Add Author</button>
-                <div class="admin-table-wrap"><table class="admin-table" id="adminAuthorsTable"><thead><tr><th>Photo</th><th>Name</th><th>Bio</th><th>Actions</th></tr></thead><tbody><tr><td colspan="4" class="text-center">Loading...</td></tr></tbody></table></div>
+                <button class="btn btn-primary btn-sm" style="margin-bottom:0.75rem;" onclick="adminAddAuthor()"><i class="fas fa-plus"></i> Add Author</button>
+                <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;" id="adminAuthorsTable"><thead><tr><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Photo</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Name</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Bio</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Actions</th></tr></thead><tbody><tr><td colspan="4" style="text-align:center;padding:1rem;color:var(--text-tertiary);">Loading...</td></tr></tbody></table></div>
             </div>
             <div id="adminTabBlog" style="display:none;">
-                <button class="btn btn-forest btn-sm mb-2" onclick="adminAddBlog()"><i class="fas fa-plus"></i> Add Blog Post</button>
-                <div class="admin-table-wrap"><table class="admin-table" id="adminBlogTable"><thead><tr><th>Title</th><th>Date</th><th>Actions</th></tr></thead><tbody><tr><td colspan="3" class="text-center">Loading...</td></tr></tbody></table></div>
+                <button class="btn btn-primary btn-sm" style="margin-bottom:0.75rem;" onclick="adminAddBlog()"><i class="fas fa-plus"></i> Add Blog Post</button>
+                <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;" id="adminBlogTable"><thead><tr><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Title</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Date</th><th style="padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border-light);font-size:0.8rem;color:var(--text-tertiary);">Actions</th></tr></thead><tbody><tr><td colspan="3" style="text-align:center;padding:1rem;color:var(--text-tertiary);">Loading...</td></tr></tbody></table></div>
             </div>
             <div id="adminTabFeatured" style="display:none;">
                 <p style="color:var(--text-secondary);margin-bottom:1rem;">Toggle featured status for books and authors.</p>
-                <h4 style="color:var(--gold);margin:1rem 0 0.5rem;">Featured Books</h4>
+                <h4 style="color:var(--gold);margin:1rem 0 0.5rem;font-family:var(--font-display);">Featured Books</h4>
                 <div id="adminFeaturedBooks"></div>
-                <h4 style="color:var(--gold);margin:1.5rem 0 0.5rem;">Featured Authors</h4>
+                <h4 style="color:var(--gold);margin:1.5rem 0 0.5rem;font-family:var(--font-display);">Featured Authors</h4>
                 <div id="adminFeaturedAuthors"></div>
             </div>
         </div>
@@ -2047,31 +1824,28 @@
             <!-- Skeleton loaders will be shown initially -->
         </div>
 
-        <!-- Pagination -->
-        <div class="pagination-wrap" id="paginationWrap"></div>
-
         <!-- Testimonials -->
-        <div class="testimonials-section" id="testimonialsSection">
+        <section style="margin-top:4rem;">
             <div class="section-header">
                 <span class="label">Reader Love</span>
                 <h2>Testimonials</h2>
                 <p>What our readers say about Bibek Books.</p>
             </div>
             <div class="testimonials-grid" id="testimonialsGrid"></div>
-        </div>
+        </section>
 
         <!-- Blog -->
-        <div class="blog-section" id="blogSection">
+        <section style="margin-top:4rem;">
             <div class="section-header">
                 <span class="label">Insights</span>
                 <h2>Blog & Articles</h2>
                 <p>Book reviews, author interviews, and reading tips.</p>
             </div>
             <div class="blog-grid" id="blogGrid"></div>
-        </div>
+        </section>
 
         <!-- Contact -->
-        <div class="contact-section" id="contactSection">
+        <section style="margin-top:4rem;" id="contactSection">
             <div class="section-header">
                 <span class="label">Get In Touch</span>
                 <h2>Contact Us</h2>
@@ -2091,7 +1865,7 @@
                             <label for="contactMessage">Message</label>
                             <textarea id="contactMessage" required placeholder="How can we help you?"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary btn-block">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
                     </form>
@@ -2108,8 +1882,9 @@
                     <div class="social-links" id="contactSocial"></div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+
+    </main>
 
     <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
@@ -2136,7 +1911,7 @@
     <!-- Wishlist Modal -->
     <div class="overlay" id="wishModal" style="display:none;" onclick="if(event.target===this)closeWishModal()">
         <div class="card-modal">
-            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;">
+            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;font-family:var(--font-display);">
                 ❤️ Wishlist
                 <button onclick="closeWishModal()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-secondary);">✕</button>
             </h3>
@@ -2147,7 +1922,7 @@
     <!-- Cart Modal -->
     <div class="overlay" id="cartModal" style="display:none;" onclick="if(event.target===this)closeCart()">
         <div class="card-modal">
-            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;">
+            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;font-family:var(--font-display);">
                 🛒 Cart
                 <button onclick="closeCart()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-secondary);">✕</button>
             </h3>
@@ -2159,7 +1934,7 @@
     <!-- Buy Modal -->
     <div class="overlay" id="buyModal" style="display:none;" onclick="if(event.target===this)closeBuy()">
         <div class="card-modal" style="max-width:420px;">
-            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;">
+            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;font-family:var(--font-display);">
                 💳 Checkout
                 <button onclick="closeBuy()" style="background:none;border:none;font-size:1.4rem;color:var(--text-secondary);">✕</button>
             </h3>
@@ -2170,7 +1945,7 @@
     <!-- Admin Edit Modal -->
     <div class="overlay" id="adminEditModal" style="display:none;" onclick="if(event.target===this)closeAdminEditModal()">
         <div class="card-modal" style="max-width:560px;">
-            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;">
+            <h3 style="display:flex;justify-content:space-between;color:var(--text-primary);font-size:1.2rem;font-family:var(--font-display);">
                 ✏️ Edit
                 <button onclick="closeAdminEditModal()" style="background:none;border:none;font-size:1.4rem;color:var(--text-secondary);">✕</button>
             </h3>
@@ -2178,7 +1953,7 @@
             <input type="hidden" id="adminEditCollection">
             <div id="adminEditForm"></div>
             <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
-                <button class="btn btn-forest" onclick="confirmAdminEdit()">💾 Save</button>
+                <button class="btn btn-primary" onclick="confirmAdminEdit()">💾 Save</button>
                 <button class="btn btn-ghost" onclick="closeAdminEditModal()">Cancel</button>
             </div>
         </div>
@@ -2216,8 +1991,6 @@
         let userData = { wishlist: [], cart: [], purchased: [] };
         let isAuthor = false;
         let activeCat = 'All';
-        let currentPage = 1;
-        const PER_PAGE = 8;
         const CATS = ['Spiritual', 'Fiction', 'Non-Fiction', 'Science', 'History', 'Poetry', 'Business'];
         const PALETTES = [
             ['#8b5cf6', '#6d28d9'],
@@ -2396,7 +2169,7 @@
                         <div class="fg"><label>Password</label><input id="authLoginPass" type="password" placeholder="Enter password" style="width:100%;"></div>
                         <div style="text-align:right;font-size:0.8rem;"><a href="#" onclick="forgotPassword()" style="color:var(--gold);text-decoration:none;">Forgot Password?</a></div>
                         <div id="authErrMsg" class="auth-err"></div>
-                        <button class="btn btn-amber" style="width:100%;justify-content:center;padding:12px;" onclick="doLogin()">🚀 Login</button>
+                        <button class="btn btn-gold" style="width:100%;justify-content:center;padding:12px;" onclick="doLogin()">🚀 Login</button>
                     </div>
                     <div class="auth-divider">or</div>
                     <button class="btn btn-ghost" style="width:100%;justify-content:center;" onclick="sendPhoneOTP()">📱 Login with Phone OTP</button>
@@ -2413,7 +2186,7 @@
                         <div class="fg"><label>Password (min 6 chars)</label><input id="regPass" type="password" placeholder="Create a password" style="width:100%;"></div>
                         <div class="fg"><label>Confirm Password</label><input id="regPass2" type="password" placeholder="Re-enter password" style="width:100%;"></div>
                         <div id="authErrMsg" class="auth-err"></div>
-                        <button class="btn btn-forest" style="width:100%;justify-content:center;padding:12px;" onclick="doRegister()">✨ Create Account</button>
+                        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px;" onclick="doRegister()">✨ Create Account</button>
                     </div>
                     <div style="margin-top:14px;font-size:0.85rem;color:var(--text-tertiary);">Already have an account? <a href="#" onclick="switchAuthTab('login')" style="color:var(--gold);text-decoration:none;">Login</a></div>
                 `;
@@ -2518,7 +2291,7 @@
             const logoutBtn = document.getElementById('dropLogout');
             if (currentUser) {
                 accBtn.textContent = '👤 ' + (currentUser.displayName || currentUser.email || 'User');
-                accBtn.style.color = 'var(--gold)';
+                accBtn.style.color = 'var(--accent-primary)';
                 logoutBtn.style.display = 'flex';
             } else {
                 accBtn.textContent = '👤 Account';
@@ -2586,10 +2359,10 @@
         function renderAuthorPanel() {
             const head = document.getElementById('authorPanelHead');
             head.innerHTML = `
-                <button class="btn btn-sm btn-amber" onclick="showAddBookForm()">+ New Book</button>
-                <button class="btn btn-sm btn-ghost" onclick="changeAuthorPass()">🔑 Change Password</button>
-                <button class="btn btn-sm btn-ghost" onclick="editSocialLinks()">🔗 Social Links</button>
-                <button class="btn btn-sm btn-ruby" onclick="logoutAuthor()">Lock Panel</button>
+                <button class="btn btn-gold btn-sm" onclick="showAddBookForm()">+ New Book</button>
+                <button class="btn btn-ghost btn-sm" onclick="changeAuthorPass()">🔑 Change Password</button>
+                <button class="btn btn-ghost btn-sm" onclick="editSocialLinks()">🔗 Social Links</button>
+                <button class="btn btn-danger btn-sm" onclick="logoutAuthor()">Lock Panel</button>
             `;
             showAddBookForm();
         }
@@ -2607,7 +2380,7 @@
                 <div class="fg" style="align-items:center;justify-content:center;">
                     <label>Free Book?</label>
                     <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--text-secondary);">
-                        <input type="checkbox" id="f_free" ${bookData?.isFree?'checked':''} style="width:18px;height:18px;accent-color:var(--emerald);"> Yes, make it free
+                        <input type="checkbox" id="f_free" ${bookData?.isFree?'checked':''} style="width:18px;height:18px;accent-color:#10b981;"> Yes, make it free
                     </label>
                 </div>
                 <div class="fg" style="grid-column:1/-1;"><label>PDF URL</label><input id="f_pdf" value="${esc(bookData?.pdfUrl||'')}" placeholder="https://drive.google.com/file/..."></div>
@@ -2615,7 +2388,7 @@
                 <div class="fg" style="grid-column:1/-1;"><label>Publish Date</label><input type="date" id="f_date" value="${bookData?.publishDate||new Date().toISOString().slice(0,10)}"></div>
                 <div class="fg" style="grid-column:1/-1;"><label>Description</label><textarea id="f_desc" rows="3" placeholder="Book description...">${esc(bookData?.description||'')}</textarea></div>
                 <div style="grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;">
-                    <button class="btn btn-amber" onclick="submitBook('${editId||''}')">💾 ${editId?'Update Book':'Publish Book'}</button>
+                    <button class="btn btn-gold" onclick="submitBook('${editId||''}')">💾 ${editId?'Update Book':'Publish Book'}</button>
                     <button class="btn btn-ghost" onclick="document.getElementById('authorPanelBody').innerHTML=''">✕ Cancel</button>
                 </div>
             </div>`;
@@ -2710,21 +2483,14 @@
         // ================================================================
         // BOOK GRID & FILTERS
         // ================================================================
-        function renderBookGrid(bookArr, page = 1) {
+        function renderBookGrid(bookArr) {
             const grid = document.getElementById('bookGrid');
-            const total = bookArr.length;
-            const totalPages = Math.ceil(total / PER_PAGE);
-            const start = (page - 1) * PER_PAGE;
-            const paginated = bookArr.slice(start, start + PER_PAGE);
-
-            if (!total) {
+            if (!bookArr.length) {
                 grid.innerHTML =
                 `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">📭</div><p><strong>No books found</strong></p></div>`;
-                document.getElementById('paginationWrap').innerHTML = '';
                 return;
             }
-
-            grid.innerHTML = paginated.map((b, i) => {
+            grid.innerHTML = bookArr.map((b, i) => {
                 const pr = calcPrice(b);
                 const pal = PALETTES[i % PALETTES.length];
                 const coverHTML = b.coverImage ?
@@ -2733,17 +2499,16 @@
                 let badgeHTML = '';
                 if (b.isFree) badgeHTML = '<span class="book-badge badge-free">FREE</span>';
                 else if (pr.disc > 0) badgeHTML = `<span class="book-badge badge-disc">-${pr.disc}%</span>`;
-                if (b.featured) badgeHTML += '<span class="book-badge badge-featured" style="left:auto;right:10px;">⭐</span>';
+                if (b.featured) badgeHTML += '<span class="book-badge badge-featured">⭐</span>';
                 const priceHTML = b.isFree ?
                     '<span class="price-now">Free</span>' :
                     `${pr.disc > 0 ? `<span class="price-was">₹${pr.orig}</span>` : ''}<span class="price-now">₹${pr.cur}</span>`;
-                const ratingHTML = b.rating ? `<span class="book-rating">★ ${b.rating}</span>` : '';
                 const isWishlisted = userData.wishlist.includes(b.id);
                 const isInCart = userData.cart.includes(b.id);
                 const isPurchased = userData.purchased.includes(b.id);
                 const readAction = isPurchased || b.isFree ?
-                    `onclick="event.stopPropagation();window._readBook('${b.id}')"` :
-                    `onclick="event.stopPropagation();window._addToCart('${b.id}')"`;
+                    `onclick="window._readBook('${b.id}')"` :
+                    `onclick="window._addToCart('${b.id}')"`;
                 const readText = isPurchased || b.isFree ? '📖 Read' : (isInCart ? '✓ In Cart' : '🛒 Buy');
                 return `
                 <div class="book-card" onclick="window._openDetail('${b.id}')">
@@ -2754,7 +2519,6 @@
                   <div class="book-info">
                     <div class="book-title">${esc(b.title)}</div>
                     <div class="book-author">by ${esc(b.author)}</div>
-                    ${ratingHTML}
                     <div class="price-row">${priceHTML}</div>
                     <div class="card-btns" onclick="event.stopPropagation();">
                       <button class="c-btn ${isWishlisted?'wishlisted':''}" onclick="window._toggleWishlist('${b.id}')">${isWishlisted?'❤️':'🤍'}</button>
@@ -2763,26 +2527,6 @@
                   </div>
                 </div>`;
             }).join('');
-
-            // Pagination
-            const pWrap = document.getElementById('paginationWrap');
-            if (totalPages <= 1) { pWrap.innerHTML = ''; return; }
-            let pHtml = '';
-            pHtml +=
-                `<button ${page === 1 ? 'disabled' : ''} data-page="${page - 1}"><i class="fas fa-chevron-left"></i></button>`;
-            for (let i = 1; i <= totalPages; i++) {
-                pHtml += `<button class="${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
-            }
-            pHtml +=
-                `<button ${page === totalPages ? 'disabled' : ''} data-page="${page + 1}"><i class="fas fa-chevron-right"></i></button>`;
-            pWrap.innerHTML = pHtml;
-            pWrap.querySelectorAll('button').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const p = parseInt(btn.getAttribute('data-page'));
-                    if (p && p !== page) { currentPage = p;
-                        filterBooks(); }
-                });
-            });
         }
 
         function filterBooks() {
@@ -2793,7 +2537,7 @@
                 .toLowerCase().includes(q));
             document.getElementById('sectionTitle').textContent = q ? `Results for "${esc(q)}"` : (activeCat === 'All' ?
                 'All Books' : activeCat);
-            renderBookGrid(filtered, currentPage);
+            renderBookGrid(filtered);
         }
 
         function renderCatPills() {
@@ -2803,7 +2547,6 @@
         }
 
         window._setCat = (c) => { activeCat = c;
-            currentPage = 1;
             renderCatPills();
             filterBooks(); };
         window.filterBooks = filterBooks;
@@ -2869,7 +2612,7 @@
                     </div>
                     <div style="flex:1;"><strong>${esc(b.title)}</strong><br><small style="color:var(--text-tertiary);">${esc(b.author)}</small></div>
                     <span style="font-weight:700;color:var(--gold);">${b.isFree?'Free':`₹${pr.cur}`}</span>
-                    <button class="btn btn-sm btn-ghost" onclick="window._toggleWishlist('${b.id}')">❌</button>
+                    <button class="btn btn-ghost btn-sm" onclick="window._toggleWishlist('${b.id}')">❌</button>
                 </div>`;
             }).join('') : '<div class="empty-state"><div class="empty-icon">💔</div><p>Your wishlist is empty.</p></div>';
             m.style.display = 'flex';
@@ -2896,7 +2639,7 @@
                         </div>
                         <div style="flex:1;"><strong>${esc(b.title)}</strong><br><small style="color:var(--text-tertiary);">${esc(b.author)}</small></div>
                         <span style="font-weight:700;color:var(--gold);">${b.isFree?'Free':`₹${pr.cur}`}</span>
-                        <button class="btn btn-sm btn-ghost" onclick="window._removeFromCart('${b.id}')">✕</button>
+                        <button class="btn btn-ghost btn-sm" onclick="window._removeFromCart('${b.id}')">✕</button>
                     </div>`;
                 }).join('');
                 f.innerHTML = `
@@ -2904,7 +2647,7 @@
                         <div style="display:flex;justify-content:space-between;color:var(--text-secondary);"><span>Subtotal</span><span>₹${total}</span></div>
                         <div class="buy-total"><span>Total</span><span>₹${total}</span></div>
                     </div>
-                    <button class="btn btn-forest" style="width:100%;justify-content:center;" onclick="openBuy()">💳 Proceed to Pay ₹${total}</button>
+                    <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="openBuy()">💳 Proceed to Pay ₹${total}</button>
                 `;
             }
             m.style.display = 'flex';
@@ -2925,7 +2668,7 @@
                     <div class="buy-total"><span>Total Amount</span><span>₹${total}</span></div>
                 </div>
                 <p style="font-size:0.8rem;color:var(--text-tertiary);margin-bottom:12px;">🔒 Secure payment via Razorpay</p>
-                <button class="btn btn-forest" style="width:100%;justify-content:center;" onclick="window._processPayment(${total})">Pay ₹${total}</button>
+                <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="window._processPayment(${total})">Pay ₹${total}</button>
                 <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:8px;" onclick="closeBuy()">Cancel</button>
             `;
             m.style.display = 'flex';
@@ -2944,7 +2687,7 @@
                     image: '',
                     prefill: { name: currentUser?.displayName || '', email: currentUser?.email || '' },
                     notes: { userId: currentUser?.uid || '' },
-                    theme: { color: '#8b5cf6' },
+                    theme: { color: '#7c3aed' },
                     handler: async function(response) {
                         if (currentUser) {
                             userData.purchased = [...userData.purchased, ...userData.cart];
@@ -2979,7 +2722,6 @@
             document.getElementById('detailTitle').textContent = b.title;
             const body = document.getElementById('detailBody');
             const pr = calcPrice(b);
-            const ratingStars = b.rating ? '★'.repeat(Math.round(b.rating)) + '☆'.repeat(5 - Math.round(b.rating)) : '';
             body.innerHTML = `
                 <div class="book-detail-cover" style="background:transparent;">
                     ${b.coverImage?`<img src="${esc(b.coverImage)}" style="width:100%;height:100%;object-fit:cover;border-radius:10px;">`:`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;color:#fff;text-align:center;padding:16px;background:linear-gradient(135deg,#8b5cf6,#f0b90b);border-radius:10px;">${esc(b.title)}</div>`}
@@ -2988,7 +2730,6 @@
                     <h2>${esc(b.title)}</h2>
                     <p class="author">by <strong>${esc(b.author)}</strong></p>
                     <p class="meta">📅 ${esc(b.publishDate||'N/A')} · 📂 ${esc(b.category||'N/A')}</p>
-                    ${b.rating ? `<p style="color:var(--gold);font-size:1rem;">${ratingStars} ${b.rating}</p>` : ''}
                     ${b.description ? `<p class="desc">${esc(b.description)}</p>` : ''}
                     <div class="price-row">
                         ${b.isFree?'<span class="price-now">📖 Free</span>':`${pr.disc>0?`<span class="price-was">₹${pr.orig}</span>`:''}<span class="price-now">₹${pr.cur}</span>`}
@@ -3001,8 +2742,8 @@
                 isWishlisted = userData.wishlist.includes(b.id);
             foot.innerHTML = `
                 <button class="btn btn-ghost btn-sm" onclick="window._toggleWishlist('${b.id}')">${isWishlisted?'❤️ Wishlisted':'🤍 Wishlist'}</button>
-                ${isPurchased||b.isFree?`<button class="btn btn-forest btn-sm" onclick="window._readBook('${b.id}')">📖 Read Now</button>`:`<button class="btn btn-forest btn-sm" onclick="window._addToCart('${b.id}')">${isInCart?'✓ In Cart':'🛒 Add to Cart'}</button>`}
-                ${isAuthor?`<button class="btn btn-amber btn-sm" onclick="closeDetailModal();openEditFromDetail('${b.id}')">✏️ Edit</button><button class="btn btn-ruby btn-sm" onclick="closeDetailModal();adminDeleteBook('${b.id}')">🗑️ Delete</button>`:''}
+                ${isPurchased||b.isFree?`<button class="btn btn-primary btn-sm" onclick="window._readBook('${b.id}')">📖 Read Now</button>`:`<button class="btn btn-primary btn-sm" onclick="window._addToCart('${b.id}')">${isInCart?'✓ In Cart':'🛒 Add to Cart'}</button>`}
+                ${isAuthor?`<button class="btn btn-gold btn-sm" onclick="closeDetailModal();openEditFromDetail('${b.id}')">✏️ Edit</button><button class="btn btn-danger btn-sm" onclick="closeDetailModal();adminDeleteBook('${b.id}')">🗑️ Delete</button>`:''}
                 <button class="btn btn-ghost btn-sm" onclick="closeDetailModal()">Close</button>
             `;
             document.getElementById('detailModal').style.display = 'flex';
@@ -3046,11 +2787,11 @@
                 `).join('');
             } catch (e) {
                 testimonials = [
-                    { quote: 'BookVerse India has transformed my reading experience. The curation is impeccable!',
+                    { quote: 'Bibek Books has transformed my reading experience. The curation is impeccable!',
                         name: 'Ananya Gupta', role: 'Book Reviewer' },
                     { quote: 'A wonderful platform that celebrates the diversity of Indian writing.', name: 'Vikram Patel',
                         role: 'Professor of Literature' },
-                    { quote: 'I discovered so many amazing authors through BookVerse. Highly recommended!',
+                    { quote: 'I discovered so many amazing authors through Bibek Books. Highly recommended!',
                         name: 'Sneha Iyer', role: 'Avid Reader' }
                 ];
                 grid.innerHTML = testimonials.map(t => `
@@ -3142,7 +2883,6 @@
             document.getElementById('dropdownWrap').classList.remove('open');
             if (!currentUser) { toast('Please login first', 'err');
                 openAuthModal(); return; }
-            // Simple admin check: any logged-in user can access for demo
             isAdminMode = !isAdminMode;
             const panel = document.getElementById('adminPanelFull');
             if (isAdminMode) {
@@ -3165,11 +2905,11 @@
 
         // Admin tabs
         document.addEventListener('click', (e) => {
-            const tab = e.target.closest('.admin-tab');
+            const tab = e.target.closest('[data-admin-tab]');
             if (tab) {
                 const tabName = tab.getAttribute('data-admin-tab');
-                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
+                document.querySelectorAll('[data-admin-tab]').forEach(t => t.classList.remove('on'));
+                tab.classList.add('on');
                 ['adminTabBooks', 'adminTabAuthors', 'adminTabBlog', 'adminTabFeatured'].forEach(id => {
                     const el = document.getElementById(id);
                     if (el) el.style.display = 'none';
@@ -3190,13 +2930,15 @@
             const booksData = await getBooksFromDB();
             tbody.innerHTML = booksData.map(b => `
                 <tr>
-                    <td>${b.coverImage ? '📖' : '📄'}</td>
-                    <td>${esc(b.title)}</td>
-                    <td>${esc(b.author)}</td>
-                    <td>${b.isFree ? 'Free' : '₹'+b.price}</td>
-                    <td class="actions">
-                        <button class="btn-edit-admin" onclick="adminEditBook('${b.id}')">Edit</button>
-                        <button class="btn-del-admin" onclick="adminDeleteBook('${b.id}')">Delete</button>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);">${b.coverImage ? '📖' : '📄'}</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);color:var(--text-primary);">${esc(b.title)}</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">${esc(b.author)}</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);color:var(--gold);">${b.isFree ? 'Free' : '₹'+b.price}</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);">
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                            <button class="btn btn-gold btn-sm" onclick="adminEditBook('${b.id}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="adminDeleteBook('${b.id}')">Delete</button>
+                        </div>
                     </td>
                 </tr>
             `).join('');
@@ -3208,12 +2950,14 @@
             const authorsData = await getAuthorsFromDB();
             tbody.innerHTML = authorsData.map(a => `
                 <tr>
-                    <td>👤</td>
-                    <td>${esc(a.name)}</td>
-                    <td>${esc((a.bio||'').substring(0,50))}...</td>
-                    <td class="actions">
-                        <button class="btn-edit-admin" onclick="adminEditAuthor('${a.id}')">Edit</button>
-                        <button class="btn-del-admin" onclick="adminDeleteAuthor('${a.id}')">Delete</button>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);">👤</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);color:var(--text-primary);">${esc(a.name)}</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">${esc((a.bio||'').substring(0,50))}...</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);">
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                            <button class="btn btn-gold btn-sm" onclick="adminEditAuthor('${a.id}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="adminDeleteAuthor('${a.id}')">Delete</button>
+                        </div>
                     </td>
                 </tr>
             `).join('');
@@ -3225,11 +2969,13 @@
             const posts = await getBlogFromDB();
             tbody.innerHTML = posts.map(p => `
                 <tr>
-                    <td>${esc(p.title)}</td>
-                    <td>${esc(p.date)}</td>
-                    <td class="actions">
-                        <button class="btn-edit-admin" onclick="adminEditBlog('${p.id}')">Edit</button>
-                        <button class="btn-del-admin" onclick="adminDeleteBlog('${p.id}')">Delete</button>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);color:var(--text-primary);">${esc(p.title)}</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">${esc(p.date)}</td>
+                    <td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--border-light);">
+                        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                            <button class="btn btn-gold btn-sm" onclick="adminEditBlog('${p.id}')">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="adminDeleteBlog('${p.id}')">Delete</button>
+                        </div>
                     </td>
                 </tr>
             `).join('');
@@ -3242,18 +2988,18 @@
             const aContainer = document.getElementById('adminFeaturedAuthors');
             bContainer.innerHTML = booksData.map(b => `
                 <div style="display:flex;align-items:center;gap:1rem;padding:0.5rem 0;border-bottom:1px solid var(--border-light);">
-                    <span>${esc(b.title)}</span>
-                    <span style="color:${b.featured ? 'var(--emerald)' : 'var(--text-muted)'};font-size:0.8rem;">${b.featured ? '⭐ Featured' : 'Not featured'}</span>
-                    <button class="btn-sm ${b.featured ? 'btn-ghost' : 'btn-forest'}" onclick="adminToggleFeatured('books','${b.id}',${!b.featured})">
+                    <span style="color:var(--text-primary);">${esc(b.title)}</span>
+                    <span style="color:${b.featured ? '#10b981' : 'var(--text-muted)'};font-size:0.8rem;">${b.featured ? '⭐ Featured' : 'Not featured'}</span>
+                    <button class="btn btn-sm ${b.featured ? 'btn-ghost' : 'btn-primary'}" onclick="adminToggleFeatured('books','${b.id}',${!b.featured})">
                         ${b.featured ? 'Remove' : 'Feature'}
                     </button>
                 </div>
             `).join('');
             aContainer.innerHTML = authorsData.map(a => `
                 <div style="display:flex;align-items:center;gap:1rem;padding:0.5rem 0;border-bottom:1px solid var(--border-light);">
-                    <span>${esc(a.name)}</span>
-                    <span style="color:${a.featured ? 'var(--emerald)' : 'var(--text-muted)'};font-size:0.8rem;">${a.featured ? '⭐ Featured' : 'Not featured'}</span>
-                    <button class="btn-sm ${a.featured ? 'btn-ghost' : 'btn-forest'}" onclick="adminToggleFeatured('authors','${a.id}',${!a.featured})">
+                    <span style="color:var(--text-primary);">${esc(a.name)}</span>
+                    <span style="color:${a.featured ? '#10b981' : 'var(--text-muted)'};font-size:0.8rem;">${a.featured ? '⭐ Featured' : 'Not featured'}</span>
+                    <button class="btn btn-sm ${a.featured ? 'btn-ghost' : 'btn-primary'}" onclick="adminToggleFeatured('authors','${a.id}',${!a.featured})">
                         ${a.featured ? 'Remove' : 'Feature'}
                     </button>
                 </div>
@@ -3468,7 +3214,7 @@
                 document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
             });
 
-            console.log('📚 Bibek Books – Upgraded with theme toggle, testimonials, blog, contact, admin panel, and more!');
+            console.log('📚 Bibek Books – Premium Edition');
             console.log('🔑 Author password: ' + getPass());
             console.log('🛡️ Admin panel: Click ⋮ → Admin Panel (login required)');
         }
